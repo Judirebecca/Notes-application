@@ -1,0 +1,63 @@
+@startuml PlatformSharedPreferenceService - Class
+title PlatformSharedPreferenceService - Class
+package Services{
+    package PlatformService{
+        package PlatformSharedPreferenceService{
+            interface IPlatformSharedPreferenceService{
+                + createNote(key: String, value: NotesBO) : Future<ServiceResult<bool>>
+                + retrieveNote(key: String): Future<ServiceResult<T?>>
+            }
+        }
+    }
+}
+package BOs{
+    package NotesBO{
+        class NotesBO{
+        }
+    }
+}
+
+IPlatformSharedPreferenceService --> NotesBO
+
+newpage
+title IPlatformSharedPreferenceService - createNote(key: String, value: NotesBO)
+package Services{
+    package PlatformService{
+        package PlatformSharedPreferenceService{
+            interface IPlatformSharedPreferenceService{
+                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+            }
+        }
+    }
+}
+package Pages{
+    package CreateNoteScreen{
+        class CreateNoteScreenVM{
+            + createNoteInService() : Future<void>
+        }
+    }
+}
+CreateNoteScreenVM --> IPlatformSharedPreferenceService
+
+newpage
+title IPlatformSharedPreferenceService - retrieveNote(key: String)
+package Services{
+    package PlatformService{
+        package PlatformSharedPreferenceService{
+            interface IPlatformSharedPreferenceService{
+                + retrieveNote(key: String): Future<ServiceResult<T?>>
+            }
+        }
+    }
+}
+package Pages{
+    package RetrieveNoteScreen{
+        class RetrieveNoteScreenVM{
+            + retrieveNotesFromService() : Future<void>
+        }
+    }
+}
+RetrieveNoteScreenVM --> IPlatformSharedPreferenceService
+
+@enduml
+

@@ -1,0 +1,23 @@
+@startuml ProcessFailedScreen - Class 
+title ProcessFailedScreen - Class 
+package Pages{
+    package ReusableView{
+        package ProcessFailedScreen{
+            class ProcessFailedScreen{
+                - _processFailedScreenVM : ProcessFailedScreenVM
+            }
+            class ProcessFailedScreenVM{
+                + displayTheFailureReason(pageStatus : Map ) : void 
+                + navigateToHomeScreen() : void 
+            }
+            class ProcessFailedScreenModel{
+                + @statusOfProcess : String 
+                + @statusCode : String
+            }
+        }
+    }
+}
+ProcessFailedScreen --> ProcessFailedScreenVM : uses 
+ProcessFailedScreenVM --> ProcessFailedScreenModel : extends 
+
+@enduml

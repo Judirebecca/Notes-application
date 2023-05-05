@@ -1,0 +1,22 @@
+@startuml NoteCreatedSuccessfulScreen - class 
+title NoteCreatedSuccessfulScreen - class 
+package Pages{
+    package NoteCreatedSuccessScreen{
+        class NoteCreatedSuccessScreen{
+            - _noteCreatedSuccessScreenVM : NoteCreatedSuccessfullScreenVM
+            + initStatus() : void 
+            + dispose() : void 
+            
+        }
+        class NoteCreatedSuccessScreenVM{
+            + navigateToHomeScreen() : void 
+        }   
+        class NoteCreatedSuccessScreenModel{
+    }
+}
+}
+
+NoteCreatedSuccessfullScreen --> NoteCreatedSuccessfullScreenVM : uses
+NoteCreatedSuccessfullScreenVM --> NoteCreatedSuccessfullScreenModel : extends
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml RetriveNoteScreen - Class
+title RetriveNoteScreen - Class 
+package Pages{
+    package RetrieveNoteScreen{
+        class RetrieveNoteScreen{
+            - _retrieveNoteScreenVM : RetrieveNoteScreenVM
+            + initState() : void
+            + dispose() : void
+        }
+        class RetrieveNoteScreenVM{
+            + Constructor() : void 
+            + navigateToHomeScreen() : void
+            + retrieveNotesFromService() : Future<void>
+            + sortNotesBO() : void
+        }
+        class RetrieveNoteScreenModel{
+            + sharedPreferenceService : IPlatformSharedPreferenceService
+            + originalListOfNotesBO : List<NotesBO>
+            + pageStatus : Map 
+            + @tempListOfNotesBO : List<NotesBO>
+        }
+    }
+}
+package PlatformService{
+    package PlatformSharedPreferenceService{
+        interface IPlatformSharedPreferenceService{
+            + retrieveNote(key: String): Future<ServiceResult<T?>>
+        }
+    }
+}
+
+package BOs{
+    package NotesBO{
+        class NotesBO{
+        }
+        class NotesBOSortExtension{
+            + sortTitleInAscending() : List<NotesBO>
+        }
+    }
+}
+RetrieveNoteScreen --> RetrieveNoteScreenVM : uses
+RetrieveNoteScreenVM --> RetrieveNoteScreenModel : extends
+RetrieveNoteScreenVM --> IPlatformSharedPreferenceService 
+RetrieveNoteScreenVM --> NotesBOSortExtension 
+NotesBOSortExtension --> NotesBO
+RetrieveNoteScreenVM --> NotesBO 
+

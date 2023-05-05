@@ -1,0 +1,20 @@
+@startuml HomeScreen - Class 
+title HomeScreen - Class 
+package Pages{
+    package HomeScreen{
+        class HomeScreen{
+            - _homeScreenVM : HomeScreenVM
+            + initState() : void 
+            + dispose() : void 
+        }
+        class HomeScreenVM{
+            + navigateToCreateScreen() : void 
+            + navigateToRetrieveScreen() : void 
+        }
+        class HomeScreenModel{
+
+        }
+    }
+}
+HomeScreen --> HomeScreenVM : uses 
+HomeScreenVM --> HomeScreenModel : extends

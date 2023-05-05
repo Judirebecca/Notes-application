@@ -1,0 +1,62 @@
+@startuml NotesBO-Class
+title NotesBO Class Diagram
+package BOs{
+    package NotesBO{
+        class NotesBO{
+            + id : int
+            + title : String
+            + description : String
+        }
+        class NotesBOExtension{
+            + sortTitleInAscending() : List<NotesBO>
+        }
+    }
+}
+package Pages{
+    package CreateNoteScreen{
+        class CreateNoteScreenVM{
+            + createNoteInService() : Future<void>
+        }
+    }
+    package RetrieveNoteScreen{
+        class RetrieveNoteScreenVM{
+            + originalListOfNotesBO : List<NotesBO>
+            + @tempListOfNotesBO : List<NotesBO>
+            + retrieveNotesFromService() : Future<void>
+            + sortNotesBO() : void 
+        }
+    }
+}
+package Services{
+    package PlatformService{
+        package PlatformSharedPreferenceService{
+            interface IPlatformSharedPreferenceService{
+                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+                + retrieveNote(key: String): Future<ServiceResult<T?>>
+            }
+        }
+    }
+}
+NotesBOExtension --> NotesBO
+IPlatformSharedPreferenceService --> NotesBO
+CreateNoteScreenVM --> NotesBO
+RetrieveNoteScreenVM --> NotesBO 
+
+newpage 
+title NotesBOExtension Class diagram 
+package BOs{
+    package NotesBO{
+        class NotesBOExtension{
+            + sortTitleInAscending() : List<NotesBO>
+        }
+    }
+} 
+package Pages{
+    package RetrieveNoteScreen{
+        class RetrieveNoteScreenVM{
+            + sortNotesBO() : void 
+        }
+    }
+}
+RetrieveNoteScreenVM --> NotesBOExtension
+@enduml

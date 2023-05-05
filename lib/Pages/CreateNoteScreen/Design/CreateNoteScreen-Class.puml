@@ -1,0 +1,43 @@
+@startuml CreateNoteScreen - Class 
+title CreateNoteScreen - Class 
+package Pages{
+    package CreateNoteScreen{
+        class CreateNoteScreen{
+            - _createNoteScreenVM : CreateNoteScreenVM
+            + initState() : void 
+            + dispose() : void 
+        }
+        class CreateNoteScreenVM{
+            + Constructor() : void 
+            + createNoteInService() : Future<void>
+            + navigateToHomeScreen() : void 
+            + onChangeTitle(title : String) : void 
+            + onChangeDescription(description: String) : void
+        }
+        class CreateNoteScreenModel{
+            + sharedPreferenceService : IPlatformSharedPreferenceService
+            + title : String 
+            + description : String 
+            + pageStatus : Map 
+        }
+    }
+}
+package Services{
+    package PlatformService{
+        package PlatformSharedPreferenceService{
+            interface IPlatformSharedPreferenceService{
+                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+            }
+        }
+    }
+}
+package BOs{
+    package NotesBO{
+        class NotesBO{
+        }
+    }
+}
+CreateNoteScreen --> CreateNoteScreenVM : uses
+CreateNoteScreenVM --> IPlatformSharedPreferenceService 
+CreateNoteScreenVM --> NotesBO 
+CreateNoteScreenVM --> CreateNoteScreenModel : extends
