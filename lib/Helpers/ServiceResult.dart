@@ -261,7 +261,7 @@ enum ServiceStatusCode {
   NetworkAuthenticationRequired,
 
   /// This is a system exception that denotes an unrecognized error has occurred and the operation cannot be performed on the client side.
-  SystemException,
+  SystemException ,
 
   /// This is a network exception that denotes an error has occurred due to no internet connection, and the operation cannot be performed.
   NetworkFailure,
