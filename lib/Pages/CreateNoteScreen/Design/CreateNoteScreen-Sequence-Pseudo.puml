@@ -1,0 +1,106 @@
+@startuml CreateNoteScreen-Sequence-Pseudo
+!define POSITIVERESPONSE 90EE90
+
+!define NEGATIVEERESPONSE EFBBBB
+
+!define NUETRALRESPONSE F2DC79
+
+skinparam sequence{
+    ParticipantBackgroundColor #A7BEAE
+
+    LifeLineBackgroundColor #E7E8D1
+
+    LifeLineBorderColor #2C5F2D
+
+    ActorBackgroundColor #FC766AFF
+
+    ActorBorderColor #FC766AFF
+
+    ArrowColor #B85042
+
+    ArrowFontColor #234E70
+
+}
+title CreateNoteScreen - initState() 
+autonumber 1 
+hide footbox 
+User -> CreateNoteScreen : Invokes **initState()** 
+activate User 
+activate CreateNoteScreen 
+    CreateNoteScreen -> CreateNoteScreen : Start the stream **titleFieldController** to listen 
+    alt #POSITIVERESPONSE (event is addText)
+        CreateNoteScreen -> CreateNoteScreen : Assign the event's data in **titleFieldController**
+        CreateNoteScreen -> CreateNoteScreen : Collapse the selection 
+        CreateNoteScreen --> User : Display the text in the title field
+    end
+    CreateNoteScreen -> CreateNoteScreen : Start the stream **descriptionFieldController** to listen 
+    alt #POSITIVERESPONSE (event is addText)
+        CreateNoteScreen -> CreateNoteScreen : Assign the event's data in **descriptionFieldController**
+        CreateNoteScreen -> CreateNoteScreen : Collapse the selection 
+        CreateNoteScreen --> User : Display the text in the description field
+    end 
+    CreateNoteScreen -> CreateNoteScreen : Start the **navigationStream** to listen 
+    alt #POSITIVERESPONSE (event is NavigatorPush)
+        CreateNoteScreen -> CreateNoteScreen : Push the **pageconfig** and the event's **data**
+        CreateNoteScreen --> User : Display the respective page
+    else (event is NavigatorPop)
+        CreateNoteScreen -> CreateNoteScreen : Pop the **pageconfig** and the event is checkmounted 
+        CreateNoteScreen --> User : Display the Home Screen
+    end
+    CreateNoteScreen --> User : Returns 
+deactivate User 
+deactivate CreateNoteScreen 
+
+==PSEUDOCODE== 
+hnote across 
+    LISTEN to the stream **titleFieldController** 
+
+    **IF event == addText** 
+
+        SET the event's data to the **titleFieldController** text 
+
+        COLLAPSE the selection and provide the **titleFieldController** text length in **offset**
+
+        DISPLAY the text in the title input field 
+
+    LISTEN to the stream **descriptionFieldController** 
+    
+    **IF event == addText** 
+
+        SET the event's data to the **descriptionFieldController** text 
+
+        COLLAPSE the selection and provide the **descriptionFieldController** text length in **offset**
+
+        DISPLAY the text in the description input field 
+    
+    LISTEN to the stream **navigationStream** 
+
+    **IF event == NavigatorPush** 
+
+        PUSH the **pageconfig** and the **event's data**
+    
+    **IF event == NavigatorPop** 
+
+        POP the **pageconfig** and the event is checkmounted 
+
+end hnote 
+
+
+newpage CreateNoteScreen - dispose()
+autonumber 1 
+hide footbox 
+User -> CreateNoteScreen : Invokes **dispose()**
+activate User 
+activate CreateNoteScreen 
+CreateNoteScreen-> CreateNoteScreen : Dispose the **titleFieldController**
+CreateNoteScreen -> CreateNoteScreen : Dispose the **descriptionFieldController** 
+CreateNoteScreen --> User : Returns 
+deactivate User 
+deactivate CreateNoteScreen 
+
+==PSEUDOCODE==
+hnote across 
+    DISPOSE the **titleFieldController**
+
+    DISPOSE the **descriptionFieldController** 
+end hnote 

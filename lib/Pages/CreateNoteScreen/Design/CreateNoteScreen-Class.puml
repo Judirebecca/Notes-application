@@ -8,17 +8,20 @@ package Pages{
             + dispose() : void 
         }
         class CreateNoteScreenVM{
-            + Constructor() : void 
             + createNoteInService() : Future<void>
+            + navigateToSuccessScreen() : void 
+            + navigateToFailureScreen() : void 
             + navigateToHomeScreen() : void 
             + onChangeTitle(title : String) : void 
             + onChangeDescription(description: String) : void
         }
         class CreateNoteScreenModel{
             + sharedPreferenceService : IPlatformSharedPreferenceService
-            + title : String 
-            + description : String 
-            + pageStatus : Map 
+            + @id : int
+            + @title : String 
+            + @description : String 
+            + @pageStatus : Map 
+            + @listOfNotesBO : List<NotesBO>
         }
     }
 }
@@ -26,7 +29,7 @@ package Services{
     package PlatformService{
         package PlatformSharedPreferenceService{
             interface IPlatformSharedPreferenceService{
-                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+                + createNote(key: int, value: List<NotesBO>) : Future<ServiceResult<bool>>
             }
         }
     }

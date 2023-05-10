@@ -5,12 +5,15 @@ package Pages{
         package ProcessFailedScreen{
             class ProcessFailedScreen{
                 - _processFailedScreenVM : ProcessFailedScreenVM
+                + initState() : void 
+                + dispose() : void
             }
             class ProcessFailedScreenVM{
                 + displayTheFailureReason(pageStatus : Map ) : void 
                 + navigateToHomeScreen() : void 
             }
             class ProcessFailedScreenModel{
+                + @pageTitle : String 
                 + @statusOfProcess : String 
                 + @statusCode : String
             }

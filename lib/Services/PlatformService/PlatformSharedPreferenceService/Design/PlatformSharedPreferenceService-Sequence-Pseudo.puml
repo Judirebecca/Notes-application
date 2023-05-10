@@ -1,0 +1,132 @@
+@startuml PlatformSharedPreferenceService-Sequence-Psuedo
+
+!define POSITIVERESPONSE 90EE90
+
+!define NEGATIVEERESPONSE EFBBBB
+
+!define NUETRALRESPONSE F2DC79
+
+skinparam sequence{
+    ParticipantBackgroundColor #A7BEAE
+
+    LifeLineBackgroundColor #E7E8D1
+
+    LifeLineBorderColor #2C5F2D
+
+    ActorBackgroundColor #FC766AFF
+
+    ActorBorderColor #FC766AFF
+
+    ArrowColor #B85042
+
+    ArrowFontColor #234E70
+
+}
+
+title PlatformSharedPreferenceService - createNote(key: String, value: List<NotesBO>)
+autonumber 1
+hide footbox
+Caller -> PlatformSharedPreferenceService : Invoke **createNote(key: String, value: List<NotesBO>)**
+activate Caller
+activate PlatformSharedPreferenceService
+alt #POSITIVERESPONSE (TRY)
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Assign the values of **key** and **value** to a variable **userInfo** of map datatype
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Serialize the **userInfo** and store the result in a **encodedData** variable
+    PlatformSharedPreferenceService -> Service : Set **encodedData** in sharedPreferences against the key using \nsetString() 
+    activate Service
+    Service --> PlatformSharedPreferenceService : Returns
+    deactivate Service 
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the response in the variable **result**
+    alt #POSITIVERESPONSE (**result** == true)
+        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **result**
+    else #NEGATIVEERESPONSE (else)
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
+    end
+else #NEGATIVEERESPONSE (CATCH)
+    PlatformSharedPreferenceService -> Utilities : Invoke **writeExceptionData()**
+    activate Utilities
+    Utilities --> PlatformSharedPreferenceService : Returns
+    deactivate Utilities
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
+    deactivate PlatformSharedPreferenceService 
+    deactivate Caller 
+end
+
+==PSEUDOCODE==
+    hnote across
+        **TRY** 
+
+            STORE the values of **key** and **value** as a pair to a variable **userInfo** of map datatype
+
+            STORE the serialized result of the variable **userInfo** in a variable **encodedData**
+
+            SET **encodedData** in sharedPreferences against the key using setString() and store the result in the variable **result**
+
+                IF **result == true**
+
+                    RETURN the **ServiceResult** with status code as **OK** and content as **result**
+            
+                ELSE 
+
+                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
+
+        **CATCH** 
+
+            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
+
+    end hnote
+
+
+newpage  PlatformSharedPreferenceService - retrieveNote()
+autonumber 1 
+hide footbox 
+autonumber 1
+hide footbox
+Caller -> PlatformSharedPreferenceService : Invoke **retrieveNote(key: String)**
+activate Caller
+activate PlatformSharedPreferenceService
+alt #POSITIVERESPONSE (TRY)
+    PlatformSharedPreferenceService -> Service : Set **key** in sharedPreferences using getString() 
+    activate Service
+    Service --> PlatformSharedPreferenceService : Returns 
+    deactivate Service 
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the result in the variable **retrievedData**
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Deserialize **retrievedData** and store it in the variable **decodedData**
+    alt #POSITIVERESPONSE (**decodedData** != null)
+        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **decodedData**
+    else #NEGATIVEERESPONSE (else)
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
+    end
+else #NEGATIVEERESPONSE (CATCH)
+    PlatformSharedPreferenceService -> Utilities : Invoke **writeExceptionData()**
+    activate Utilities
+    Utilities --> PlatformSharedPreferenceService : Returns
+    deactivate Utilities
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
+    deactivate PlatformSharedPreferenceService 
+    deactivate Caller 
+end
+
+==PSEUDOCODE==
+    hnote across
+        **TRY** 
+
+            SET **key** in sharedPreferences using setString() and store the result in the variable **retrievedData**
+
+            STORE the deserialized data of **retrievedData** in the variable **decodedData** 
+
+                **IF decodedData != null**
+
+                    RETURN the **ServiceResult** with status code as **OK** and content as **decodedData**
+            
+                **ELSE**
+
+                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **null**
+
+        **CATCH** 
+
+            INVOKE **writeExceptionData()** in Utilities 
+
+            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **null**
+
+    end hnote

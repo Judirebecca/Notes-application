@@ -8,15 +8,15 @@ package Pages{
             + dispose() : void
         }
         class RetrieveNoteScreenVM{
-            + Constructor() : void 
             + navigateToHomeScreen() : void
+            + navigateToFailureScreen() : void 
             + retrieveNotesFromService() : Future<void>
             + sortNotesBO() : void
         }
         class RetrieveNoteScreenModel{
             + sharedPreferenceService : IPlatformSharedPreferenceService
-            + originalListOfNotesBO : List<NotesBO>
             + pageStatus : Map 
+            + @originalListOfNotesBO : List<NotesBO>
             + @tempListOfNotesBO : List<NotesBO>
         }
     }

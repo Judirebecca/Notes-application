@@ -1,0 +1,94 @@
+@startuml ProcessFailedScreenVM - sequence - Pseudo 
+!define POSITIVERESPONSE 90EE90
+
+!define NEGATIVEERESPONSE EFBBBB
+
+!define NUETRALRESPONSE F2DC79
+
+skinparam sequence{
+    ParticipantBackgroundColor #A7BEAE
+
+    LifeLineBackgroundColor #E7E8D1
+
+    LifeLineBorderColor #2C5F2D
+
+    ActorBackgroundColor #FC766AFF
+
+    ActorBorderColor #FC766AFF
+
+    ArrowColor #B85042
+
+    ArrowFontColor #234E70
+
+}
+
+title ProcessFailedScreenVM - displayTheFailureReason() 
+autonumber 1
+hide footbox 
+activate Caller 
+activate ProcessFailedScreenVM 
+alt #POSITIVERESPONSE (TRY)
+Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageStatus : Map )**
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **key** of **pageStatus** to **@statusOfProcess**
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **value** of **pageStatus** to **@statusCode**
+alt #POSITIVERESPONSE **@statusOfProcess** == "Creation"
+    ProcessFailedScreenVM -> ProcessFailedScreenVM : Set "Create Notes" as **@pageTitle**
+Else #NEGATIVEERESPONSE
+    ProcessFailedScreenVM -> ProcessFailedScreenVM : Set "Notes List" as **@pageTitle**
+end 
+ProcessFailedScreenVM --> Caller : Returns 
+else #NEGATIVEERESPONSE (CATCH)
+ProcessFailedScreenVM -> Utilities : Invoke **writeExceptionData()**
+activate Utilities 
+Utilities --> ProcessFailedScreenVM : Returns 
+deactivate Utilities
+ProcessFailedScreenVM --> Caller : Returns
+deactivate Caller 
+deactivate ProcessFailedScreenVM 
+end 
+
+==PSEUDOCODE==
+hnote across 
+    SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
+
+    **IF *@statusOfProcess** == "Creation"**
+
+        SET "Create Notes" as **@pageTitle**
+
+    **ELSE**
+    
+        SET "Notes List" as **@pageTitle**
+
+end hnote 
+
+
+newpage ProcessFailedScreenVMVM - navigateToHomeScreen()
+autonumber 1
+hide footbox 
+Caller -> ProcessFailedScreenVM : Invoke **navigateToHomeScreen()**
+activate Caller 
+activate ProcessFailedScreenVM
+alt #POSITIVERESPONSE (TRY)
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Push the **HomeScreen.config** to the **navigationStream** 
+ProcessFailedScreenVM --> Caller : Returns
+else #NEGATIVEERESPONSE (CATCH)
+ProcessFailedScreenVM -> Utilities : Invoke **writeExceptionData()**
+activate Utilities 
+Utilities --> ProcessFailedScreenVM : Returns 
+deactivate Utilities
+ProcessFailedScreenVM --> Caller : Returns
+deactivate Caller 
+deactivate ProcessFailedScreenVM
+end 
+
+==PSEUDOCODE==
+hnote across 
+    **TRY**
+
+        PUSH the **HomeScreen.pageconfig** as config in navigation stream
+        
+    **CATCH** 
+
+        INVOKE **writeExceptionData()**
+end hnote 
+@enduml 

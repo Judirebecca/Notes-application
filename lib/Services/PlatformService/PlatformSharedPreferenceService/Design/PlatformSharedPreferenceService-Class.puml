@@ -4,7 +4,7 @@ package Services{
     package PlatformService{
         package PlatformSharedPreferenceService{
             interface IPlatformSharedPreferenceService{
-                + createNote(key: String, value: NotesBO) : Future<ServiceResult<bool>>
+                + createNote(key: String, value: List<NotesBO>) : Future<ServiceResult<bool>>
                 + retrieveNote(key: String): Future<ServiceResult<T?>>
             }
         }
@@ -25,7 +25,7 @@ package Services{
     package PlatformService{
         package PlatformSharedPreferenceService{
             interface IPlatformSharedPreferenceService{
-                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+                + createNote(key: String, value: List<NotesBO>) : Future<ServiceResult<bool>>
             }
         }
     }

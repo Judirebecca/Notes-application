@@ -4,9 +4,8 @@ package Pages{
     package NoteCreatedSuccessScreen{
         class NoteCreatedSuccessScreen{
             - _noteCreatedSuccessScreenVM : NoteCreatedSuccessfullScreenVM
-            + initStatus() : void 
-            + dispose() : void 
-            
+            + initStatus() : void  
+            + dispose() : void  
         }
         class NoteCreatedSuccessScreenVM{
             + navigateToHomeScreen() : void 
@@ -16,7 +15,7 @@ package Pages{
 }
 }
 
-NoteCreatedSuccessfullScreen --> NoteCreatedSuccessfullScreenVM : uses
-NoteCreatedSuccessfullScreenVM --> NoteCreatedSuccessfullScreenModel : extends
+NoteCreatedSuccessScreen --> NoteCreatedSuccessScreenVM : uses
+NoteCreatedSuccessScreenVM --> NoteCreatedSuccessScreenModel : extends
 
 @enduml

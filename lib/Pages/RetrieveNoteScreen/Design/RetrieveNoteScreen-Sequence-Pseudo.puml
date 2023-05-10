@@ -1,0 +1,75 @@
+@startuml RetrieveNoteScreen - Sequence - Pseudo 
+!define POSITIVERESPONSE 90EE90
+
+!define NEGATIVEERESPONSE EFBBBB
+
+!define NUETRALRESPONSE F2DC79
+
+skinparam sequence{
+    ParticipantBackgroundColor #A7BEAE
+
+    LifeLineBackgroundColor #E7E8D1
+
+    LifeLineBorderColor #2C5F2D
+
+    ActorBackgroundColor #FC766AFF
+
+    ActorBorderColor #FC766AFF
+
+    ArrowColor #B85042
+
+    ArrowFontColor #234E70
+
+}
+
+title RetrieveNoteScreen - initState() 
+autonumber 1
+hide footbox 
+User -> RetrieveNoteScreen : Invokes **initState()** 
+activate User 
+activate RetrieveNoteScreen 
+RetrieveNoteScreen -> RetrieveNoteScreenVm : Invokes **retrieveNotesFromService()**
+activate RetrieveNoteScreenVm 
+RetrieveNoteScreenVm --> RetrieveNoteScreen : Returns
+RetrieveNoteScreen --> User : Displays the Notes to the user 
+deactivate RetrieveNoteScreenVm
+RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to listen
+    alt #POSITIVERESPONSE (event is NavigatorPush)
+        RetrieveNoteScreen -> RetrieveNoteScreen : Push the **HomeScreen.pageconfig** as pageconfig
+    end
+    RetrieveNoteScreen --> User : Displays the HomeScreen page 
+deactivate User 
+deactivate RetrieveNoteScreen
+
+==PSEUDOCODE==
+hnote across 
+    INVOKES **initState()**
+
+    INVOKES **retrieveNotesFromService()** in the **RetrieveNoteScreenVM** 
+
+    LISTEN to the **navigationStream** 
+
+    **IF event is NavigatorPush** 
+
+        PUSH the **HomeScreen.pageconfig** as pageconfig 
+
+        DISPLAY the HomeScreen page to the user 
+end hnote 
+
+newpage RetrieveNoteScreen - dispose()
+autonumber 1
+hide footbox 
+User -> RetrieveNoteScreen : Invokes **dispose()** 
+activate User 
+activate RetrieveNoteScreen
+RetrieveNoteScreen -> RetrieveNoteScreen : Dispose the instance of **RetrieveNoteScreenVM** 
+RetrieveNoteScreen --> User : Returns 
+deactivate User 
+deactivate RetrieveNoteScreen
+
+==PSEUDOCODE==
+hnote across 
+    INVOKES **dispose()** 
+
+    DISPOSE the instance of *RetrieveNoteScreenVM** 
+end hnote 

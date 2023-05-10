@@ -20,8 +20,6 @@ package Pages{
     }
     package RetrieveNoteScreen{
         class RetrieveNoteScreenVM{
-            + originalListOfNotesBO : List<NotesBO>
-            + @tempListOfNotesBO : List<NotesBO>
             + retrieveNotesFromService() : Future<void>
             + sortNotesBO() : void 
         }
@@ -31,7 +29,7 @@ package Services{
     package PlatformService{
         package PlatformSharedPreferenceService{
             interface IPlatformSharedPreferenceService{
-                + createNote(key: int, value: NotesBO) : Future<ServiceResult<bool>>
+                + createNote(key: String, value: List<NotesBO>) : Future<ServiceResult<bool>>
                 + retrieveNote(key: String): Future<ServiceResult<T?>>
             }
         }
