@@ -65,7 +65,7 @@ hnote across
 
             **ELSE** 
 
-                SET the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus** 
+                SET the **key** as **reponseReceived.statuscode** and **value** as **"Retrieve"** in the **@pageStatus** 
 
                 Invoke **navigateToFailureScreen()** and **@pageStatus** is passed as extradata to the page 
 
@@ -85,7 +85,7 @@ Caller -> RetrieveNoteScreenVM : Invoke **navigateToHomeScreen()**
 alt #POSITIVERESPONSE (TRY)
 activate Caller 
 activate RetrieveNoteScreenVM 
-RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Push the **HomeScreen.pageconfig** as config in **navigation stream** 
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Navigate to **HomeScreen**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
@@ -98,7 +98,7 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config
+        ADD the event **navigatorPush** to the **navigationStream** object along with parameter **(pageconfig: HomeScreen.pageconfig, data: null) 
     
     **CATCH** 
 
@@ -112,7 +112,7 @@ Caller -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()**
 activate Caller 
 activate RetrieveNoteScreenVM 
 alt #POSITIVERESPONSE (TRY)
-RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Push the **ProcessFailedScreen.pageconfig** as config with **@pageStatus** as extradata in navigation stream
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Navigate to **ProcessFailedScreen**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
@@ -125,7 +125,7 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** with the **ProcessFailedScreen.pageconfig** as config and **@pageStatus** as extradata
+        ADD the event **navigatorPush** to the **navigationStream** object with parameter **(pageconfig: ProcessFailedScreen.pageconfig, data: @pageStatus)**
 
     **CATCH** 
 
@@ -141,7 +141,7 @@ activate RetrieveNoteScreenVM
 alt #POSITIVERESPONSE (TRY)
 RetrieveNoteScreenVM -> UserBOExtension : Invoke **@tempListOfNotesBO.sortTitleInAscending()**
 activate UserBOExtension
-UserBOExtension --> RetrieveNoteScreenVM : Returns the sorted list of Notes based on title 
+UserBOExtension --> RetrieveNoteScreenVM : Returns
 deactivate UserBOExtension 
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the returned value in **@tempListOfNotesBO**
 RetrieveNoteScreenVM --> Caller : Returns 
@@ -157,7 +157,7 @@ hnote across
     **TRY**
         Invoke **@tempListOfNotesBO.sortTitleInAscending()** in UserBOExtension
 
-        SET the returned value in **@tempListOfNotesBO**
+        SET the returned list in **@tempListOfNotesBO**
 
     **CATCH** 
 

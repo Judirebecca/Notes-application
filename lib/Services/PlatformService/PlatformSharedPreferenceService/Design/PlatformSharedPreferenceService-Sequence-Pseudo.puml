@@ -26,11 +26,11 @@ skinparam sequence{
 title PlatformSharedPreferenceService - createNote(key: "1", value: List<NotesBO>)
 autonumber 1
 hide footbox
-Caller -> PlatformSharedPreferenceService : Invoke **createNote(key: String, value: List<NotesBO>)**
+Caller -> PlatformSharedPreferenceService : Invoke **createNote(key: "1", value: List<NotesBO>)**
 activate Caller
 activate PlatformSharedPreferenceService
 alt #POSITIVERESPONSE (TRY)
-    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Assign the values of **key** and **value** to a variable **userInfo** of map datatype
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Assign the values of **key** and **value** to a variable **userInfo** 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Serialize the **userInfo** and store the result in a **encodedData** variable
     PlatformSharedPreferenceService -> Service : Set **encodedData** in sharedPreferences against the key using \nsetString() 
     activate Service
@@ -40,11 +40,11 @@ alt #POSITIVERESPONSE (TRY)
     alt #POSITIVERESPONSE (**result** == true)
         PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **result**
     else #NEGATIVEERESPONSE (else)
-        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
     end
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write exception logs
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
 end
@@ -53,7 +53,7 @@ end
     hnote across
         **TRY** 
 
-            STORE the values of **key** and **value** as a pair to a variable **userInfo** of map datatype
+            STORE the values of **key** and **value** as a pair to a variable **userInfo** 
 
             STORE the serialized result of the variable **userInfo** in a variable **encodedData**
 
@@ -65,12 +65,12 @@ end
             
                 ELSE 
 
-                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
+                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **result**
 
         **CATCH** 
             INVOKE writeExceptionData() on the exception object **ex**
 
-            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
+            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **result**
 
     end hnote
 
@@ -106,7 +106,7 @@ end
     hnote across
         **TRY** 
 
-            SET **key** in sharedPreferences using setString() and store the result in the variable **retrievedData**
+            SET **key** in sharedPreferences using getString() and store the result in the variable **retrievedData**
 
             STORE the deserialized data of **retrievedData** in the variable **decodedData** 
 

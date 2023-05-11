@@ -29,7 +29,7 @@ Caller -> NoteCreatedSuccessScreenVM : Invoke **navigateToHomeScreen()**
 alt #POSITIVERESPONSE (TRY) 
 activate Caller 
 activate NoteCreatedSuccessScreenVM 
-NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Push the **HomeScreen.pageconfig** as config in **navigation stream**
+NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Navigate to **HomeScreen**
 NoteCreatedSuccessScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
 NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Write exception logs
@@ -42,7 +42,7 @@ end
 hnote across 
     **TRY** 
 
-        PUSH the **NoteCreatedSuccessScreen.pageconfig** as config in **navigationStream**
+        ADD the event **navigatorPush** to the **navigationStream** object along with parameter **(pageconfig: HomeScreen.pageconfig, data: null)**
 
     **CATCH** 
 

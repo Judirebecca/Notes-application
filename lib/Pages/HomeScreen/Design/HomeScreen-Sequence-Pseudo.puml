@@ -42,7 +42,7 @@ hnote across
 
     **IF (event is NavigatorPush)**
 
-        Push the **pageconfig** in the **navigationStream**
+        PUSH the **pageconfig** in the **navigationStream**
 end hnote 
 
 newpage HomeScreen - dispose() 

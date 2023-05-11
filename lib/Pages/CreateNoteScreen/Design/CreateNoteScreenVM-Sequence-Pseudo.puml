@@ -194,7 +194,7 @@ hnote across
 
         ADD the **title** from the parameter to the event of the stream **titleFieldController**
 
-        SET the value of the parameter **title** to **title**
+        SET the value of the parameter **title** to **@title**
     
     **CATCH** 
 

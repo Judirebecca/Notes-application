@@ -29,7 +29,7 @@ Caller -> HomeScreenVM : Invoke **navigateToCreateScreen()**
 activate Caller 
 activate HomeScreenVM 
 alt #POSITIVERESPONSE (TRY)
-HomeScreenVM -> HomeScreenVM :  Push the **CreateNoteScreen.pageconfig** as config in navigation stream
+HomeScreenVM -> HomeScreenVM :  Navigate to **CreateNoteScreen**
 HomeScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
 HomeScreenVM -> HomeScreenVM : Write Exception logs
@@ -42,11 +42,11 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** with the **CreateNoteScreen.pageconfig** as config
+        ADD the event **navigatorPush** to the **navigationStream** object along with parameter **(pageconfig: **CreateNoteScreen.pageconfig**, data: null)**
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()** on the exception object ex
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage HomeScreenVM - navigateToRetrieveScreen()
@@ -56,7 +56,7 @@ Caller -> HomeScreenVM : Invoke **navigateToRetrieveScreen()**
 activate Caller 
 activate HomeScreenVM 
 alt #POSITIVERESPONSE (TRY)
-HomeScreenVM -> HomeScreenVM : Push the **RetrieveNoteScreen.pageconfig** as config in navigation stream
+HomeScreenVM -> HomeScreenVM : Navigate to **RetrieveNoteScreen**
 HomeScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
 HomeScreenVM -> HomeScreenVM : Write Exception logs
@@ -69,9 +69,9 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** with the **RetrieveNoteScreen.pageconfig** as config
+        ADD the event **navigatorPush** to the **navigationStream** object along with parameter **(pageconfig: RetrieveNoteScreen.pageconfig, data: null)**
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()** on the exception object ex
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 

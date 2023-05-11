@@ -29,9 +29,9 @@ Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageStatus : 
 activate Caller 
 activate ProcessFailedScreenVM 
 alt #POSITIVERESPONSE (TRY)
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **key** of **pageStatus** to **@statusOfProcess**
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **value** of **pageStatus** to **@statusCode**
-alt #POSITIVERESPONSE **@statusOfProcess** == "Creation"
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **key** of **pageStatus** to **@statusCode**
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **value** of **pageStatus** to **@statusOfProcess**
+alt #POSITIVERESPONSE **@statusCode** == 200
     ProcessFailedScreenVM -> ProcessFailedScreenVM : Set "Create Notes" as **@pageTitle**
 Else #NEGATIVEERESPONSE
     ProcessFailedScreenVM -> ProcessFailedScreenVM : Set "Notes List" as **@pageTitle**
@@ -49,7 +49,7 @@ hnote across
     **TRY** 
         SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
 
-        **IF *@statusOfProcess** == "Creation"**
+        **IF **@statusCode** == 200
 
                 SET "Create Notes" as **@pageTitle**
 
@@ -72,7 +72,7 @@ Caller -> ProcessFailedScreenVM : Invoke **navigateToHomeScreen()**
 activate Caller 
 activate ProcessFailedScreenVM
 alt #POSITIVERESPONSE (TRY)
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Push the **HomeScreen.config** to the **navigationStream** 
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Navigate to **HomeScreen**
 ProcessFailedScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
 ProcessFailedScreenVM -> ProcessFailedScreenVM : Write exception logs
@@ -85,7 +85,7 @@ end
 hnote across 
     **TRY**
 
-        PUSH the **HomeScreen.pageconfig** as config in navigation stream
+        ADD the event **navigatorPush** to the **navigationStream** object with parameter **(pageconfig: HomeScreen.pageconfig, data: null)**
         
     **CATCH** 
 
