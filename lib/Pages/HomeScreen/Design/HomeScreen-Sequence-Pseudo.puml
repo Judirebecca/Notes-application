@@ -33,7 +33,7 @@ alt #POSITIVERESPONSE (event is NavigatorPush)
     HomeScreen -> HomeScreen : Push the **pageconfig** in the **navigationStream**
     alt (if user clicks create)
     HomeScreen --> User : Displays the Create notes page
-    else #NEGATIVEERESPONSE (else) 
+    else (If user clicks retrieve) 
     HomeScreen --> User : Displays the Notes list page
     deactivate User 
 deactivate HomeScreen 
