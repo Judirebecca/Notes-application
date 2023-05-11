@@ -25,7 +25,7 @@ skinparam sequence{
 title HomeScreen - initState()
 autonumber 1
 hide footbox
-User -> HomeScreen : Invokes **initState()**
+User -> HomeScreen : Invoke **initState()**
 activate User
 activate HomeScreen
 HomeScreen -> HomeScreen : Start the **navigationStream** to listen
@@ -48,7 +48,7 @@ end hnote
 newpage HomeScreen - dispose() 
 autonumber 1
 hide footbox 
-User -> HomeScreen : Invokes **dispose()** 
+User -> HomeScreen : Invoke **dispose()** 
 activate User 
 activate HomeScreen 
 HomeScreen -> HomeScreen : Dispose the instance of HomeScreenVM 

@@ -25,10 +25,10 @@ skinparam sequence{
 title RetrieveNoteScreen - initState() 
 autonumber 1
 hide footbox 
-User -> RetrieveNoteScreen : Invokes **initState()** 
+User -> RetrieveNoteScreen : Invoke **initState()** 
 activate User 
 activate RetrieveNoteScreen 
-RetrieveNoteScreen -> RetrieveNoteScreenVm : Invokes **retrieveNotesFromService()**
+RetrieveNoteScreen -> RetrieveNoteScreenVm : Invoke **retrieveNotesFromService()**
 activate RetrieveNoteScreenVm 
 RetrieveNoteScreenVm --> RetrieveNoteScreen : Returns
 RetrieveNoteScreen --> User : Displays the Notes to the user 
@@ -43,9 +43,9 @@ deactivate RetrieveNoteScreen
 
 ==PSEUDOCODE==
 hnote across 
-    INVOKES **initState()**
+    Invoke **initState()**
 
-    INVOKES **retrieveNotesFromService()** in the **RetrieveNoteScreenVM** 
+    Invoke **retrieveNotesFromService()** in the **RetrieveNoteScreenVM** 
 
     LISTEN to the **navigationStream** 
 
@@ -59,7 +59,7 @@ end hnote
 newpage RetrieveNoteScreen - dispose()
 autonumber 1
 hide footbox 
-User -> RetrieveNoteScreen : Invokes **dispose()** 
+User -> RetrieveNoteScreen : Invoke **dispose()** 
 activate User 
 activate RetrieveNoteScreen
 RetrieveNoteScreen -> RetrieveNoteScreen : Dispose the instance of **RetrieveNoteScreenVM** 
@@ -69,7 +69,7 @@ deactivate RetrieveNoteScreen
 
 ==PSEUDOCODE==
 hnote across 
-    INVOKES **dispose()** 
+    INVOKE **dispose()** 
 
     DISPOSE the instance of *RetrieveNoteScreenVM** 
 end hnote 

@@ -24,7 +24,7 @@ skinparam sequence{
 title CreateNoteScreen - initState() 
 autonumber 1 
 hide footbox 
-User -> CreateNoteScreen : Invokes **initState()** 
+User -> CreateNoteScreen : Invoke **initState()** 
 activate User 
 activate CreateNoteScreen 
     CreateNoteScreen -> CreateNoteScreen : Start the stream **titleFieldController** to listen 
@@ -89,7 +89,7 @@ end hnote
 newpage CreateNoteScreen - dispose()
 autonumber 1 
 hide footbox 
-User -> CreateNoteScreen : Invokes **dispose()**
+User -> CreateNoteScreen : Invoke **dispose()**
 activate User 
 activate CreateNoteScreen 
 CreateNoteScreen-> CreateNoteScreen : Dispose the **titleFieldController**
