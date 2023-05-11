@@ -49,7 +49,7 @@ hnote across
     **TRY** 
         SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
 
-        **IF **@statusCode** == 200
+        **IF @statusCode == 200**
 
                 SET "Create Notes" as **@pageTitle**
 

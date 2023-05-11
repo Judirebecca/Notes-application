@@ -31,10 +31,16 @@ activate HomeScreen
 HomeScreen -> HomeScreen : Start the **navigationStream** to listen
 alt #POSITIVERESPONSE (event is NavigatorPush)
     HomeScreen -> HomeScreen : Push the **pageconfig** in the **navigationStream**
-end
-HomeScreen --> User : Displays the respective page
-deactivate User 
+    alt (if user clicks create)
+    HomeScreen --> User : Displays the Create notes page
+    else #NEGATIVEERESPONSE (else) 
+    HomeScreen --> User : Displays the Notes list page
+    deactivate User 
 deactivate HomeScreen 
+    end
+end
+
+
 
 ==PSEUDOCODE - initState()==
 hnote across 

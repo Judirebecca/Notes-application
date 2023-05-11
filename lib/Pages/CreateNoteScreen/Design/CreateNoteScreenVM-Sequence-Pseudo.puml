@@ -31,7 +31,7 @@ activate Caller
 activate CreateNoteScreenVM
 alt #POSITIVERESPONSE (TRY)
     CreateNoteScreenVM -> CreateNoteScreenVM : Assign and increment the **@id**
-    CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **instanceOfNotesBO** pass the instance of **NotesBO** and pass the value of **@id** , **@title** and **@description** to it
+    CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **instanceOfNotesBO** pass the instance of **NotesBO** and assign the value of **@id** , **@title** and **@description** 
     CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **@listOfNotesBO** add the **instanceOfNotesBO**
     CreateNoteScreenVM -> PlatformSharedPreferenceService : Invoke **createNote(key: "1", value: List<NotesBO>)**
     activate PlatformSharedPreferenceService

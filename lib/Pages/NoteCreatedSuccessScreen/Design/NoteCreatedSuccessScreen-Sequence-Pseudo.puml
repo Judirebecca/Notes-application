@@ -25,7 +25,7 @@ skinparam sequence{
 title NoteCreatedSuccessScreen - initState() 
 autonumber 1
 hide footbox 
-User -> NoteCreatedSuccessScreen : Invoke **initState()** 
+User -> NoteCreatedSuccessScreen : Invokes **initState()** 
 activate User 
 activate NoteCreatedSuccessScreen 
 NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Start the **navigationStream** to listen
@@ -36,7 +36,7 @@ NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Start the **navigationStr
 deactivate User 
 deactivate NoteCreatedSuccessScreen
 
-==PSEUDOCODE - initState()== 
+==PSEUDOCODE - initState() == 
 hnote across 
     LISTEN to the **navigationStream**
 
@@ -48,7 +48,7 @@ end hnote
 newpage NoteCreatedSuccessScreen - dispose() 
 autonumber 1
 hide footbox 
-User -> NoteCreatedSuccessScreen : Invoke **dispose()** 
+User -> NoteCreatedSuccessScreen : Invokes **dispose()** 
 activate User 
 activate NoteCreatedSuccessScreen 
 NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Dispose the instance of **NoteCreatedSuccessScreenVM**
@@ -56,7 +56,7 @@ NoteCreatedSuccessScreen --> User : Returns
 deactivate User 
 deactivate NoteCreatedSuccessScreen 
 
-==PSEUDOCODE - dispose()== 
+==PSEUDOCODE - dispose() == 
 hnote across 
     DISPOSE the instance of **NoteCreatedSuccessScreenVM**
 end hnote 
