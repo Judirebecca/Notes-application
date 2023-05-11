@@ -30,15 +30,14 @@ Caller -> CreateNoteScreenVM : Invoke **createNoteInService()**
 activate Caller
 activate CreateNoteScreenVM
 alt #POSITIVERESPONSE (TRY)
-    CreateNoteScreenVM -> CreateNoteScreenVM : Assign and increment the @id
+    CreateNoteScreenVM -> CreateNoteScreenVM : Assign and increment the **@id**
     CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **instanceOfNotesBO** pass the instance of **NotesBO** and pass the value of **@id** , **@title** and **@description** to it
     CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **@listOfNotesBO** add the **instanceOfNotesBO**
-    CreateNoteScreenVM -> PlatformSharedPreferenceService : Invoke **createNote(key: String, value: List<NotesBO>)**
+    CreateNoteScreenVM -> PlatformSharedPreferenceService : Invoke **createNote(key: "1", value: List<NotesBO>)**
     activate PlatformSharedPreferenceService
     PlatformSharedPreferenceService --> CreateNoteScreenVM : Returns the **serviceResult<bool>**
     deactivate PlatformSharedPreferenceService 
-    CreateNoteScreenVM -> CreateNoteScreenVM : Set the **serviceResult<bool>** to a variable **response**
-    alt #POSITIVERESPONSE (response.content == true)
+    alt #POSITIVERESPONSE (response == true)
         CreateNoteScreenVM -> CreateNoteScreenVM : Invoke **navigateToSuccessScreen()**
         CreateNoteScreenVM --> Caller : Returns
     else #NEGATIVEERESPONSE
@@ -49,10 +48,7 @@ alt #POSITIVERESPONSE (TRY)
     deactivate PlatformSharedPreferenceService 
 
 else #NEGATIVEERESPONSE (CATCH)
-    CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-    activate Utilities
-    Utilities --> CreateNoteScreenVM : Returns
-    deactivate Utilities
+        CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs
         CreateNoteScreenVM -> CreateNoteScreenVM : Set the status code and status of page to **@pageStatus** 
         CreateNoteScreenVM -> CreateNoteScreenVM : Invoke **navigateToFailureScreen()** 
         CreateNoteScreenVM --> Caller : Returns 
@@ -70,9 +66,9 @@ hnote across
 
         SET the value of **instanceOfNotesBO** to the **@listOfNotesBO**
 
-        INVOKE **createNote(key: String, value: List<NotesBO>)** in the **PlatformSharedPreferenceService**, where **"1"** is passed as key and **@listOfNotesBO** is passed as value 
+        INVOKE **createNote(key: "1", value: List<NotesBO>)** in the **PlatformSharedPreferenceService**, where **@listOfNotesBO** is passed as value 
 
-        SET the **serviceResult<bool>** to the variable **response** 
+        SET the **serviceResult<bool>** to **response** 
 
         **IF (response.content == true)**
 
@@ -80,15 +76,15 @@ hnote across
         
         **ELSE** 
 
-            SET the **response.statuscode** as key and **"Creation"** as value to the variable **@pageStatus**
+            SET the **response.statuscode** as key and **"Creation"** as value to **@pageStatus**
 
             INVOKE **navigateToFailureScreen()** 
 
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 
-        SET the **response.statuscode** as key and **"Creation"** as value to the variable **@pageStatus**
+        SET the **response.statuscode** as key and **"Creation"** as value to **@pageStatus**
 
         INVOKE **navigateToFailureScreen()** 
 end hnote
@@ -100,27 +96,25 @@ Caller -> CreateNoteScreenVM : Invoke **navigateToSuccessScreen()**
 activate Caller 
 activate CreateNoteScreenVM 
 alt #POSITIVERESPONSE (TRY)
-CreateNoteScreenVM -> CreateNoteScreenVM : Push the **NoteCreatedSuccessScreen.pageconfig** as config in navigation stream
+CreateNoteScreenVM -> CreateNoteScreenVM : Navigate to **NoteCreatedSuccessScreen**
 CreateNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> CreateNoteScreenVM : Returns 
-deactivate Utilities
-CreateNoteScreenVM --> Caller : Returns 
+CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs 
+CreateNoteScreenVM --> Caller : Returns
 deactivate CreateNoteScreenVM 
 deactivate Caller
 end
+
 
 ==PSEUDOCODE== 
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** with the **NoteCreatedSuccessScreen.pageconfig** as config and **@pageStatus** as extradata in navigation stream 
+        ADD the event **navigatorPush** to the **navigationStream** object along with **parameter (pageconfig: NoteCreatedSuccessScreen.pageconfig, data: @pageStatus)**
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage CreateNoteScreenVM - navigateToHomeScreen()
@@ -130,13 +124,10 @@ Caller -> CreateNoteScreenVM : Invoke **navigateToHomeScreen()**
 activate Caller 
 activate CreateNoteScreenVM 
 alt #POSITIVERESPONSE (TRY)
-CreateNoteScreenVM -> CreateNoteScreenVM :  Add the event **navigatorPop** to the **navigationStream**
+CreateNoteScreenVM -> CreateNoteScreenVM : Navigate to **HomeScreen**
 CreateNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> CreateNoteScreenVM : Returns 
-deactivate Utilities
+CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs 
 CreateNoteScreenVM --> Caller : Returns
 deactivate CreateNoteScreenVM 
 deactivate Caller 
@@ -146,11 +137,11 @@ end
 hnote across 
     **TRY**
         
-        ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config
+        ADD the event **navigatorPop** to the **navigationStream** object 
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage CreateNoteScreenVM - navigateToFailureScreen() 
@@ -160,13 +151,10 @@ Caller -> CreateNoteScreenVM : Invoke **navigateToFailureScreen()**
 activate Caller 
 activate CreateNoteScreenVM 
 alt #POSITIVERESPONSE (TRY)
-CreateNoteScreenVM -> CreateNoteScreenVM : Push the **ProcessFailedScreen.pageconfig** as config with **@pageStatus** as extradata in navigation stream
+CreateNoteScreenVM -> CreateNoteScreenVM : Navigate to **ProcessFailedScreen**
 CreateNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> CreateNoteScreenVM : Returns 
-deactivate Utilities
+CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs 
 CreateNoteScreenVM --> Caller : Returns
 deactivate CreateNoteScreenVM 
 deactivate Caller 
@@ -176,11 +164,11 @@ end
 hnote across 
     **TRY**
         
-        ADD the event **navigatorPush** to the **navigationStream** with the **ProcessFailedScreen.pageconfig** as config and **@pageStatus** as extradata
+        ADD the event **navigatorPush** to the **navigationStream** object along with the **parameter (pageconfig: ProcessFailedScreen., data: @pageStatus)**     
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage CreateNoteScreenVM - onChangeTitle()
@@ -191,15 +179,12 @@ activate Caller
 activate CreateNoteScreenVM
 alt #POSITIVERESPONSE (TRY)
 CreateNoteScreenVM -> CreateNoteScreenVM : Add the **title** to the **titleFieldController** stream
-CreateNoteScreenVM -> CreateNoteScreenVM : Set the value got from the method's parameter to the variable **@title**
+CreateNoteScreenVM -> CreateNoteScreenVM : Set the value got from **title** to **@title**
 CreateNoteScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> CreateNoteScreenVM : Returns 
-deactivate Utilities
+CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs 
 CreateNoteScreenVM --> Caller : Returns
-deactivate CreateNoteScreenVM
+deactivate CreateNoteScreenVM 
 deactivate Caller
 end
 
@@ -209,11 +194,11 @@ hnote across
 
         ADD the **title** from the parameter to the event of the stream **titleFieldController**
 
-        SET the value of the parameter **title** to the variable **title**
+        SET the value of the parameter **title** to **title**
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote
 
 newpage CreateNoteScreenVM - onChangeDescription()
@@ -224,15 +209,12 @@ activate Caller
 activate CreateNoteScreenVM
 alt #POSITIVERESPONSE (TRY)
 CreateNoteScreenVM -> CreateNoteScreenVM : Add the **description** to the **descriptionFieldController** stream
-CreateNoteScreenVM -> CreateNoteScreenVM : Set the value got from the method's parameter to the variable **@description**
+CreateNoteScreenVM -> CreateNoteScreenVM : Set the value got from description to **@description**
 CreateNoteScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-CreateNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> CreateNoteScreenVM : Returns 
-deactivate Utilities
+CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs 
 CreateNoteScreenVM --> Caller : Returns
-deactivate CreateNoteScreenVM
+deactivate CreateNoteScreenVM 
 deactivate Caller
 end 
 
@@ -240,11 +222,11 @@ end
 hnote across
     **TRY**
 
-        ADD the **description** from the parameter to the event of the stream **descriptionFieldController**
+        ADD the **description** to the event of the stream **descriptionFieldController**
 
-        SET the value of the parameter **description** to the variable **description**
+        SET the value of the parameter **description** to **@description**
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote

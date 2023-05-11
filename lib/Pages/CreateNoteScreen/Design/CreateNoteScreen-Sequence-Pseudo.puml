@@ -42,12 +42,15 @@ activate CreateNoteScreen
     CreateNoteScreen -> CreateNoteScreen : Start the **navigationStream** to listen 
     alt #POSITIVERESPONSE (event is NavigatorPush)
         CreateNoteScreen -> CreateNoteScreen : Push the **pageconfig** and the event's **data**
-        CreateNoteScreen --> User : Display the respective page
+        alt (If Note is created)
+            CreateNoteScreen --> User : Display the Note Created Success Screen
+        else #NEGATIVEERESPONSE (If creation of note is unsuccessfull)
+            CreateNoteScreen --> User : Display the Process Failed Screen
+        end
     else (event is NavigatorPop)
-        CreateNoteScreen -> CreateNoteScreen : Pop the **pageconfig** and the event is checkmounted 
+        CreateNoteScreen -> CreateNoteScreen : Pop the **pageconfig** and the event's data is checkmounted 
         CreateNoteScreen --> User : Display the Home Screen
     end
-    CreateNoteScreen --> User : Returns 
 deactivate User 
 deactivate CreateNoteScreen 
 
