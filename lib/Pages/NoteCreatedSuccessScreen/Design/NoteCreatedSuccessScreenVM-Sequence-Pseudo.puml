@@ -32,11 +32,8 @@ activate NoteCreatedSuccessScreenVM
 NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Push the **HomeScreen.pageconfig** as config in **navigation stream**
 NoteCreatedSuccessScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-NoteCreatedSuccessScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> NoteCreatedSuccessScreenVM : Returns 
-deactivate Utilities
-NoteCreatedSuccessScreenVM --> Caller : Returns
+NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Write exception logs
+NoteCreatedSuccessScreenVM --> Caller : Returns 
 deactivate Caller
 deactivate NoteCreatedSuccessScreenVM 
 end 

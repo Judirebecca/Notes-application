@@ -32,11 +32,8 @@ alt #POSITIVERESPONSE (TRY)
 HomeScreenVM -> HomeScreenVM :  Push the **CreateNoteScreen.pageconfig** as config in navigation stream
 HomeScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-HomeScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> HomeScreenVM : Returns 
-deactivate Utilities
-HomeScreenVM --> Caller : Returns
+HomeScreenVM -> HomeScreenVM : Write Exception logs
+HomeScreenVM --> Caller : Returns 
 deactivate Caller 
 deactivate HomeScreenVM 
 end 
@@ -49,7 +46,7 @@ hnote across
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object ex
 end hnote 
 
 newpage HomeScreenVM - navigateToRetrieveScreen()
@@ -62,11 +59,8 @@ alt #POSITIVERESPONSE (TRY)
 HomeScreenVM -> HomeScreenVM : Push the **RetrieveNoteScreen.pageconfig** as config in navigation stream
 HomeScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-HomeScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> HomeScreenVM : Returns 
-deactivate Utilities
-HomeScreenVM --> Caller : Returns
+HomeScreenVM -> HomeScreenVM : Write Exception logs
+HomeScreenVM --> Caller : Returns 
 deactivate Caller 
 deactivate HomeScreenVM 
 end 
@@ -79,5 +73,5 @@ hnote across
     
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object ex
 end hnote 

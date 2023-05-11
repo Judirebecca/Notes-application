@@ -43,10 +43,7 @@ alt #POSITIVERESPONSE (TRY)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
     end
 else #NEGATIVEERESPONSE (CATCH)
-    PlatformSharedPreferenceService -> Utilities : Invoke **writeExceptionData()**
-    activate Utilities
-    Utilities --> PlatformSharedPreferenceService : Returns
-    deactivate Utilities
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write exception logs
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **false**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
@@ -71,6 +68,7 @@ end
                     RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
 
         **CATCH** 
+            INVOKE writeExceptionData() on the exception object **ex**
 
             RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **false**
 
@@ -98,10 +96,7 @@ alt #POSITIVERESPONSE (TRY)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
     end
 else #NEGATIVEERESPONSE (CATCH)
-    PlatformSharedPreferenceService -> Utilities : Invoke **writeExceptionData()**
-    activate Utilities
-    Utilities --> PlatformSharedPreferenceService : Returns
-    deactivate Utilities
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write exception logs 
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
@@ -125,7 +120,7 @@ end
 
         **CATCH** 
 
-            INVOKE **writeExceptionData()** in Utilities 
+            INVOKE writeExceptionData() on the exception object **ex**
 
             RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **null**
 

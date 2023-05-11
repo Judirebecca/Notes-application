@@ -41,14 +41,12 @@ alt #POSITIVERESPONSE (TRY)
         RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
         RetrieveNoteScreenVM --> Caller : Returns 
 end
-RetrieveNoteScreenVM --> Caller : Returns 
+
 else #NEGATIVEERESPONSE (CATCH)
-    RetrieveNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-    activate Utilities
-    Utilities --> RetrieveNoteScreenVM : Returns
-    deactivate Utilities
-        RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus**  
-        RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
+    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
+    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus**  
+    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
+    RetrieveNoteScreenVM --> Caller : Returns 
     deactivate RetrieveNoteScreenVM
     deactivate Caller
 end 
@@ -73,7 +71,7 @@ hnote across
 
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object as **ex**
 
         SET the **response.statuscode** as key and **"Retrieve"** as value to the variable **@pageStatus**
 
@@ -83,17 +81,14 @@ end hnote
 newpage RetrieveNoteScreenVM - navigateToHomeScreen() 
 autonumber 1 
 hide footbox 
-alt #POSITIVERESPONSE (TRY)
 Caller -> RetrieveNoteScreenVM : Invoke **navigateToHomeScreen()**
+alt #POSITIVERESPONSE (TRY)
 activate Caller 
 activate RetrieveNoteScreenVM 
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Push the **HomeScreen.pageconfig** as config in **navigation stream** 
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-RetrieveNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> RetrieveNoteScreenVM : Returns 
-deactivate Utilities
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
 RetrieveNoteScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate RetrieveNoteScreenVM 
@@ -101,7 +96,13 @@ end
 
 ==PSEUDOCODE - navigateToHomeScreen()== 
 hnote across 
-    ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config
+    **TRY**
+
+        ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config
+    
+    **CATCH** 
+
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote
 
 newpage RetrieveNoteScreenVM - navigateToFailureScreen()
@@ -114,13 +115,10 @@ alt #POSITIVERESPONSE (TRY)
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Push the **ProcessFailedScreen.pageconfig** as config with **@pageStatus** as extradata in navigation stream
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-RetrieveNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> RetrieveNoteScreenVM : Returns 
-deactivate Utilities
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
 RetrieveNoteScreenVM --> Caller : Returns
-deactivate RetrieveNoteScreenVM 
 deactivate Caller 
+deactivate RetrieveNoteScreenVM 
 end 
 
 ==PSEUDOCODE- navigateToFailureScreen()== 
@@ -131,7 +129,7 @@ hnote across
 
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage sortNotesBO()
@@ -148,13 +146,10 @@ deactivate UserBOExtension
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the returned value in **@tempListOfNotesBO**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH) 
-    RetrieveNoteScreenVM -> Utilities : Invoke **writeExceptionData()**
-    activate Utilities
-    Utilities --> RetrieveNoteScreenVM : Returns
-    deactivate Utilities
-    RetrieveNoteScreenVM --> Caller : Returns 
-    deactivate Caller 
-    deactivate RetrieveNoteScreenVM
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write exception logs
+RetrieveNoteScreenVM --> Caller : Returns
+deactivate Caller 
+deactivate RetrieveNoteScreenVM 
 end 
 
 ==PSEUDOCODE-  sortNotesBO()== 
@@ -166,6 +161,6 @@ hnote across
 
     **CATCH** 
 
-        Invoke **writeExceptionData()** 
+        Invoke **writeExceptionData()** on the exception object **ex**
 
 end hnote 

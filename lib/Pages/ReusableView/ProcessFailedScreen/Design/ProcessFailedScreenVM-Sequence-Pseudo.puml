@@ -25,10 +25,10 @@ skinparam sequence{
 title ProcessFailedScreenVM - displayTheFailureReason() 
 autonumber 1
 hide footbox 
+Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageStatus : Map )**
 activate Caller 
 activate ProcessFailedScreenVM 
 alt #POSITIVERESPONSE (TRY)
-Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageStatus : Map )**
 ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **key** of **pageStatus** to **@statusOfProcess**
 ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **value** of **pageStatus** to **@statusCode**
 alt #POSITIVERESPONSE **@statusOfProcess** == "Creation"
@@ -38,10 +38,7 @@ Else #NEGATIVEERESPONSE
 end 
 ProcessFailedScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-ProcessFailedScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> ProcessFailedScreenVM : Returns 
-deactivate Utilities
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Write exception logs
 ProcessFailedScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate ProcessFailedScreenVM 
@@ -49,15 +46,21 @@ end
 
 ==PSEUDOCODE - displayTheFailureReason()==
 hnote across 
-    SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
+    **TRY** 
+        SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
 
-    **IF *@statusOfProcess** == "Creation"**
+        **IF *@statusOfProcess** == "Creation"**
 
-        SET "Create Notes" as **@pageTitle**
+                SET "Create Notes" as **@pageTitle**
 
-    **ELSE**
+        **ELSE**
     
-        SET "Notes List" as **@pageTitle**
+                SET "Notes List" as **@pageTitle**
+        
+    **CATCH** 
+
+        INVOKE writeExceptionData() on the exception object **ex**
+
 
 end hnote 
 
@@ -72,13 +75,10 @@ alt #POSITIVERESPONSE (TRY)
 ProcessFailedScreenVM -> ProcessFailedScreenVM : Push the **HomeScreen.config** to the **navigationStream** 
 ProcessFailedScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-ProcessFailedScreenVM -> Utilities : Invoke **writeExceptionData()**
-activate Utilities 
-Utilities --> ProcessFailedScreenVM : Returns 
-deactivate Utilities
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Write exception logs
 ProcessFailedScreenVM --> Caller : Returns
 deactivate Caller 
-deactivate ProcessFailedScreenVM
+deactivate ProcessFailedScreenVM 
 end 
 
 ==PSEUDOCODE - navigateToHomeScreen()==
@@ -89,6 +89,6 @@ hnote across
         
     **CATCH** 
 
-        INVOKE **writeExceptionData()**
+        INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 @enduml 
