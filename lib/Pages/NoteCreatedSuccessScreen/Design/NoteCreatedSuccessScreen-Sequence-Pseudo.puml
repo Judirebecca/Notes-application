@@ -36,7 +36,7 @@ NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Start the **navigationStr
 deactivate User 
 deactivate NoteCreatedSuccessScreen
 
-==PSEUDOCODE== 
+==PSEUDOCODE - initState()== 
 hnote across 
     LISTEN to the **navigationStream**
 
@@ -56,7 +56,7 @@ NoteCreatedSuccessScreen --> User : Returns
 deactivate User 
 deactivate NoteCreatedSuccessScreen 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - dispose()== 
 hnote across 
     DISPOSE the instance of **NoteCreatedSuccessScreenVM**
 end hnote 

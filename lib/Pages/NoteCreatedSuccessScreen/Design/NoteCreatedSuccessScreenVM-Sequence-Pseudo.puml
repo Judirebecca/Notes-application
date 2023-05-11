@@ -41,7 +41,7 @@ deactivate Caller
 deactivate NoteCreatedSuccessScreenVM 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToHomeScreen()== 
 hnote across 
     **TRY** 
 

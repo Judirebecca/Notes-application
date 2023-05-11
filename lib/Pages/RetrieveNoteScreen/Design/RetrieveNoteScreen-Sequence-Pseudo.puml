@@ -41,7 +41,7 @@ RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to lis
 deactivate User 
 deactivate RetrieveNoteScreen
 
-==PSEUDOCODE==
+==PSEUDOCODE - initState() ==
 hnote across 
     Invoke **initState()**
 
@@ -67,7 +67,7 @@ RetrieveNoteScreen --> User : Returns
 deactivate User 
 deactivate RetrieveNoteScreen
 
-==PSEUDOCODE==
+==PSEUDOCODE - dispose()==
 hnote across 
     INVOKE **dispose()** 
 

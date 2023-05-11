@@ -56,7 +56,7 @@ else #NEGATIVEERESPONSE (CATCH)
     deactivate Caller
 end
 
-==PSEUDOCODE==
+==PSEUDOCODE - createNoteInService()==
 hnote across 
     **TRY** 
 
@@ -106,7 +106,7 @@ deactivate Caller
 end
 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToSuccessScreen()== 
 hnote across 
     **TRY**
 
@@ -133,7 +133,7 @@ deactivate CreateNoteScreenVM
 deactivate Caller 
 end
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToHomeScreen()== 
 hnote across 
     **TRY**
         
@@ -160,7 +160,7 @@ deactivate CreateNoteScreenVM
 deactivate Caller 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToFailureScreen() == 
 hnote across 
     **TRY**
         
@@ -188,7 +188,7 @@ deactivate CreateNoteScreenVM
 deactivate Caller
 end
 
-==PSEUDOCODE==
+==PSEUDOCODE - onChangeTitle()==
 hnote across
     **TRY**
 
@@ -218,7 +218,7 @@ deactivate CreateNoteScreenVM
 deactivate Caller
 end 
 
-==PSEUDOCODE==
+==PSEUDOCODE - onChangeDescription()==
 hnote across
     **TRY**
 

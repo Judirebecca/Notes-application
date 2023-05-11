@@ -36,7 +36,7 @@ HomeScreen --> User : Displays the respective page
 deactivate User 
 deactivate HomeScreen 
 
-==PSEUDOCODE==
+==PSEUDOCODE - initState()==
 hnote across 
     LISTEN to the **navigationStream** 
 
@@ -56,7 +56,7 @@ HomeScreen --> User : Returns
 deactivate User 
 deactivate HomeScreen 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - dispose() == 
 hnote across 
     DISPOSE the instance of **HomeScreenVM**
 end hnote 

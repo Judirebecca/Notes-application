@@ -49,12 +49,11 @@ else #NEGATIVEERESPONSE (CATCH)
     deactivate Utilities
         RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus**  
         RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
-        RetrieveNoteScreenVM --> Caller : Returns 
     deactivate RetrieveNoteScreenVM
     deactivate Caller
 end 
 
-==PSEUDOCODE==
+==PSEUDOCODE - retrieveNotesFromService()==
 hnote across 
     **TRY**
 
@@ -100,7 +99,7 @@ deactivate Caller
 deactivate RetrieveNoteScreenVM 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToHomeScreen()== 
 hnote across 
     ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config
 end hnote
@@ -124,7 +123,7 @@ deactivate RetrieveNoteScreenVM
 deactivate Caller 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE- navigateToFailureScreen()== 
 hnote across 
     **TRY**
 
@@ -158,7 +157,7 @@ else #NEGATIVEERESPONSE (CATCH)
     deactivate RetrieveNoteScreenVM
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE-  sortNotesBO()== 
 hnote across 
     **TRY**
         Invoke **@tempListOfNotesBO.sortTitleInAscending()** in UserBOExtension

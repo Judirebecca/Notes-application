@@ -23,7 +23,7 @@ skinparam sequence{
 
 }
 
-title PlatformSharedPreferenceService - createNote(key: String, value: List<NotesBO>)
+title PlatformSharedPreferenceService - createNote(key: "1", value: List<NotesBO>)
 autonumber 1
 hide footbox
 Caller -> PlatformSharedPreferenceService : Invoke **createNote(key: String, value: List<NotesBO>)**
@@ -52,7 +52,7 @@ else #NEGATIVEERESPONSE (CATCH)
     deactivate Caller 
 end
 
-==PSEUDOCODE==
+==PSEUDOCODE- createNote()==
     hnote across
         **TRY** 
 
@@ -107,7 +107,7 @@ else #NEGATIVEERESPONSE (CATCH)
     deactivate Caller 
 end
 
-==PSEUDOCODE==
+==PSEUDOCODE- retrieveNote()==
     hnote across
         **TRY** 
 

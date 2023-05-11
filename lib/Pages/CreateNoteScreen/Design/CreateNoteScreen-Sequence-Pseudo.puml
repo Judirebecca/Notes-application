@@ -54,7 +54,7 @@ activate CreateNoteScreen
 deactivate User 
 deactivate CreateNoteScreen 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - initState() == 
 hnote across 
     LISTEN to the stream **titleFieldController** 
 
@@ -101,7 +101,7 @@ CreateNoteScreen --> User : Returns
 deactivate User 
 deactivate CreateNoteScreen 
 
-==PSEUDOCODE==
+==PSEUDOCODE - dispose()==
 hnote across 
     DISPOSE the **titleFieldController**
 

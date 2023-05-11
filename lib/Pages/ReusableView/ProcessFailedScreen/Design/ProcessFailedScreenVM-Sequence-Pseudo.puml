@@ -47,7 +47,7 @@ deactivate Caller
 deactivate ProcessFailedScreenVM 
 end 
 
-==PSEUDOCODE==
+==PSEUDOCODE - displayTheFailureReason()==
 hnote across 
     SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
 
@@ -62,7 +62,7 @@ hnote across
 end hnote 
 
 
-newpage ProcessFailedScreenVMVM - navigateToHomeScreen()
+newpage ProcessFailedScreenVM - navigateToHomeScreen()
 autonumber 1
 hide footbox 
 Caller -> ProcessFailedScreenVM : Invoke **navigateToHomeScreen()**
@@ -81,7 +81,7 @@ deactivate Caller
 deactivate ProcessFailedScreenVM
 end 
 
-==PSEUDOCODE==
+==PSEUDOCODE - navigateToHomeScreen()==
 hnote across 
     **TRY**
 

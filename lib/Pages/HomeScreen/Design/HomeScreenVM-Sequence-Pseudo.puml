@@ -41,7 +41,7 @@ deactivate Caller
 deactivate HomeScreenVM 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToCreateScreen()== 
 hnote across 
     **TRY**
 
@@ -71,7 +71,7 @@ deactivate Caller
 deactivate HomeScreenVM 
 end 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - navigateToRetrieveScreen()== 
 hnote across 
     **TRY**
 

@@ -36,7 +36,7 @@ ProcessFailedScreen -> ProcessFailedScreen : Start the **navigationStream** to l
 deactivate User 
 deactivate ProcessFailedScreen
 
-==PSEUDOCODE== 
+==PSEUDOCODE - initState()== 
 hnote across 
     LISTEN to the **navigationStream**
 
@@ -56,7 +56,7 @@ ProcessFailedScreen --> User : Returns
 deactivate User 
 deactivate ProcessFailedScreen 
 
-==PSEUDOCODE== 
+==PSEUDOCODE - dispose()== 
 hnote across 
     DISPOSE the instance of **ProcessFailedScreenVM**
 end hnote 
