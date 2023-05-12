@@ -28,21 +28,33 @@ hide footbox
 User -> ProcessFailedScreen : Invoke **initState()** 
 activate User 
 activate ProcessFailedScreen 
+alt #POSITIVERESPONSE (TRY)
 ProcessFailedScreen -> ProcessFailedScreen : Start the **navigationStream** to listen
     alt #POSITIVERESPONSE (event is NavigatorPush)
         ProcessFailedScreen -> ProcessFailedScreen : Push the **HomeScreen.pageconfig** as pageconfig
     end
     ProcessFailedScreen --> User : Displays the HomeScreen page 
+else #NEGATIVEERESPONSE (CATCH)
+    ProcessFailedScreen -> ProcessFailedScreen : Write exception logs 
+    ProcessFailedScreen --> User : Returns 
 deactivate User 
 deactivate ProcessFailedScreen
+end 
 
 ==PSEUDOCODE - initState()== 
 hnote across 
+**TRY**
+    
     LISTEN to the **navigationStream**
 
     **IF (event is NavigatorPush)
 
         ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config 
+
+**CATCH**
+
+    INVOKE **writeExceptionData()** on the exception object **ex**
+
 end hnote 
 
 newpage ProcessFailedScreen - dispose() 

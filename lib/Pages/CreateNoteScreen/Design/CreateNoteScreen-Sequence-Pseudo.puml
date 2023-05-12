@@ -27,6 +27,7 @@ hide footbox
 User -> CreateNoteScreen : Invoke **initState()** 
 activate User 
 activate CreateNoteScreen 
+alt #POSITIVERESPONSE (TRY)
     CreateNoteScreen -> CreateNoteScreen : Start the stream **titleFieldController** to listen 
     alt #POSITIVERESPONSE (event is addText)
         CreateNoteScreen -> CreateNoteScreen : Assign the event's data in **titleFieldController**
@@ -51,11 +52,19 @@ activate CreateNoteScreen
         CreateNoteScreen -> CreateNoteScreen : Pop the **pageconfig** and the event's data is checkmounted 
         CreateNoteScreen --> User : Display the Home Screen
     end
-deactivate User 
-deactivate CreateNoteScreen 
+else #NEGATIVEERESPONSE (CATCH)
+    CreateNoteScreen -> CreateNoteScreen : Write exception logs 
+    CreateNoteScreen --> User : Returns 
+    deactivate User 
+deactivate CreateNoteScreen
+end 
+ 
 
 ==PSEUDOCODE - initState() == 
 hnote across 
+
+**TRY**
+
     LISTEN to the stream **titleFieldController** 
 
     **IF event == addText** 
@@ -80,12 +89,15 @@ hnote across
 
     **IF event == NavigatorPush** 
 
-        PUSH the **pageconfig** and the **event's data**
+        PUSH the event's **pageconfig** and the **event's data**
     
     **IF event == NavigatorPop** 
 
-        POP the **pageconfig** and the event is checkmounted 
+        POP the event's **pageconfig** and the event is checkmounted 
 
+**CATCH**
+    
+    INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 

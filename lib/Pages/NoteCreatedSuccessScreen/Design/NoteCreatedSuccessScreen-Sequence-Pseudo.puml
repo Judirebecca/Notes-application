@@ -28,21 +28,32 @@ hide footbox
 User -> NoteCreatedSuccessScreen : Invokes **initState()** 
 activate User 
 activate NoteCreatedSuccessScreen 
+alt #POSITIVERESPONSE (TRY)
 NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Start the **navigationStream** to listen
     alt #POSITIVERESPONSE (event is NavigatorPush)
         NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Push the **HomeScreen.pageconfig** as pageconfig
     end
     NoteCreatedSuccessScreen --> User : Displays the HomeScreen page 
+else #NEGATIVEERESPONSE (CATCH)
+NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Write exception logs 
+NoteCreatedSuccessScreen --> User : Returns 
 deactivate User 
-deactivate NoteCreatedSuccessScreen
+deactivate NoteCreatedSuccessScreen 
+end 
 
 ==PSEUDOCODE - initState() == 
 hnote across 
+**TRY**
+
     LISTEN to the **navigationStream**
 
     **IF** (event is NavigatorPush)
 
         ADD the event **navigatorPush** to the **navigationStream** with the **HomeScreen.pageconfig** as config 
+
+**CATCH**
+
+    INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage NoteCreatedSuccessScreen - dispose() 

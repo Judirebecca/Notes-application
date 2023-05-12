@@ -28,21 +28,25 @@ hide footbox
 User -> RetrieveNoteScreen : Invoke **initState()** 
 activate User 
 activate RetrieveNoteScreen 
-RetrieveNoteScreen -> RetrieveNoteScreenVm : Invoke **retrieveNotesFromService()**
-activate RetrieveNoteScreenVm 
-RetrieveNoteScreenVm --> RetrieveNoteScreen : Returns
+alt #POSITIVERESPONSE (TRY)
+RetrieveNoteScreen -> RetrieveNoteScreen : Invoke **retrieveNotesFromService()**
 RetrieveNoteScreen --> User : Displays the Notes to the user 
-deactivate RetrieveNoteScreenVm
 RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to listen
     alt #POSITIVERESPONSE (event is NavigatorPush)
         RetrieveNoteScreen -> RetrieveNoteScreen : Push the **HomeScreen.pageconfig** as pageconfig
     end
-    RetrieveNoteScreen --> User : Displays the HomeScreen page 
+    RetrieveNoteScreen --> User : Displays the HomeScreen page
+else #NEGATIVEERESPONSE (CATCH) 
+RetrieveNoteScreen -> RetrieveNoteScreen : Write exception logs 
+RetrieveNoteScreen --> User : Returns 
 deactivate User 
 deactivate RetrieveNoteScreen
+end 
 
 ==PSEUDOCODE - initState() ==
 hnote across 
+**TRY**
+
     Invoke **initState()**
 
     Invoke **retrieveNotesFromService()** in the **RetrieveNoteScreenVM** 
@@ -54,6 +58,10 @@ hnote across
         PUSH the **HomeScreen.pageconfig** as pageconfig 
 
         DISPLAY the HomeScreen page to the user 
+
+**CATCH**
+
+    INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage RetrieveNoteScreen - dispose()

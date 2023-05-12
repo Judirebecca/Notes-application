@@ -28,6 +28,7 @@ hide footbox
 User -> HomeScreen : Invoke **initState()**
 activate User
 activate HomeScreen
+alt #POSITIVERESPONSE (TRY)
 HomeScreen -> HomeScreen : Start the **navigationStream** to listen
 alt #POSITIVERESPONSE (event is NavigatorPush)
     HomeScreen -> HomeScreen : Push the **pageconfig** in the **navigationStream**
@@ -35,20 +36,31 @@ alt #POSITIVERESPONSE (event is NavigatorPush)
     HomeScreen --> User : Displays the Create notes page
     else (If user clicks retrieve) 
     HomeScreen --> User : Displays the Notes list page
-    deactivate User 
-deactivate HomeScreen 
+
     end
 end
+else #NEGATIVEERESPONSE (CATCH)
+HomeScreen -> HomeScreen : Write exception logs 
+HomeScreen --> User : Returns 
+deactivate User 
+deactivate HomeScreen 
+end 
 
 
 
 ==PSEUDOCODE - initState()==
 hnote across 
+**TRY**
+
     LISTEN to the **navigationStream** 
 
     **IF (event is NavigatorPush)**
 
         PUSH the **pageconfig** in the **navigationStream**
+
+**CATCH**
+
+    INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
 newpage HomeScreen - dispose() 
