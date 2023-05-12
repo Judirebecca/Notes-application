@@ -100,6 +100,89 @@ hnote across
     INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
+newpage CreateNoteScreen - User types in title field 
+autonumber 1 
+hide footbox 
+User -> CreateNoteScreen : Enters text in **title** field 
+activate User 
+activate CreateNoteScreen
+CreateNoteScreen -> CreateNoteScreenVM : Invokes **onChangeTitle(title : String)**
+activate CreateNoteScreenVM
+CreateNoteScreenVM --> CreateNoteScreen : Returns
+deactivate CreateNoteScreenVM  
+CreateNoteScreen --> User : Returns 
+deactivate CreateNoteScreen 
+deactivate User 
+
+==PSEUDOCODE - User types in title field==
+hnote across 
+    TYPES on the **title** field 
+
+    INVOKES **onChangeTitle(title : String)**
+end hnote 
+
+newpage CreateNoteScreen - User types in description field 
+autonumber 1 
+hide footbox 
+User -> CreateNoteScreen : Enters text in **description** field 
+activate User 
+activate CreateNoteScreen
+CreateNoteScreen -> CreateNoteScreenVM : Invokes **onChangeDescription(description : String)**
+activate CreateNoteScreenVM
+CreateNoteScreenVM --> CreateNoteScreen : Returns
+deactivate CreateNoteScreenVM  
+CreateNoteScreen --> User : Returns 
+deactivate CreateNoteScreen 
+deactivate User 
+
+==PSEUDOCODE - User types in title field==
+hnote across 
+    TYPES on the **description** field 
+
+    INVOKES **onChangeDescription(title : String)**
+end hnote 
+
+newpage CreateNoteScreen - "Create" button.clicked
+autonumber 1
+hide footbox 
+User -> CreateNoteScreen : "Create" button.clicked
+activate User 
+activate CreateNoteScreen 
+CreateNoteScreen -> CreateNoteScreenVM : Invokes **createNoteInService()**
+activate CreateNoteScreenVM
+CreateNoteScreenVM --> CreateNoteScreen : Returns 
+deactivate CreateNoteScreenVM 
+CreateNoteScreen --> User : Returns 
+deactivate User 
+deactivate CreateNoteScreen 
+
+==PSEUDOCODE - "Create" button.clicked==
+hnote across 
+    CLICKS **Create** button
+
+    INVOKE **createNoteInService()**
+end hnote 
+
+newpage CreateNoteScreen - "Go back" button.clicked
+autonumber 
+hide footbox 
+User -> CreateNoteScreen : "Go back" button.clicked
+activate User 
+activate CreateNoteScreen 
+CreateNoteScreen -> CreateNoteScreenVM : Invokes **navigateToHomeScreen()**
+activate CreateNoteScreenVM
+CreateNoteScreenVM --> CreateNoteScreen : Returns 
+deactivate CreateNoteScreenVM 
+CreateNoteScreen --> User : Returns 
+deactivate User 
+deactivate CreateNoteScreen 
+
+==PSEUDOCODE - "Create" button.clicked==
+hnote across 
+    CLICKS **Go back** button
+
+    INVOKE **navigateToHomeScreen()**
+end hnote 
 
 newpage CreateNoteScreen - dispose()
 autonumber 1 

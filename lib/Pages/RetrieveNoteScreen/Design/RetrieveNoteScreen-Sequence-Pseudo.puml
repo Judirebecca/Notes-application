@@ -33,9 +33,9 @@ RetrieveNoteScreen -> RetrieveNoteScreen : Invoke **retrieveNotesFromService()**
 RetrieveNoteScreen --> User : Displays the Notes to the user 
 RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to listen
     alt #POSITIVERESPONSE (event is NavigatorPush)
-        RetrieveNoteScreen -> RetrieveNoteScreen : Push the **HomeScreen.pageconfig** as pageconfig
+        RetrieveNoteScreen -> RetrieveNoteScreen : Push the **RetrieveNoteScreen.pageconfig** as pageconfig
     end
-    RetrieveNoteScreen --> User : Displays the HomeScreen page
+    RetrieveNoteScreen --> User : Displays the RetrieveNoteScreen page
 else #NEGATIVEERESPONSE (CATCH) 
 RetrieveNoteScreen -> RetrieveNoteScreen : Write exception logs 
 RetrieveNoteScreen --> User : Returns 
@@ -55,13 +55,55 @@ hnote across
 
     **IF event is NavigatorPush** 
 
-        PUSH the **HomeScreen.pageconfig** as pageconfig 
+        PUSH the **RetrieveNoteScreen.pageconfig** as pageconfig 
 
-        DISPLAY the HomeScreen page to the user 
+        DISPLAY the RetrieveNoteScreen page to the user 
 
 **CATCH**
 
     INVOKE **writeExceptionData()** on the exception object **ex**
+end hnote 
+
+newpage RetrieveNoteScreen - "Go back" button.clicked
+autonumber 1
+hide footbox 
+User -> RetrieveNoteScreen : "Go back" button.clicked
+activate User 
+activate RetrieveNoteScreen 
+RetrieveNoteScreen -> RetrieveNoteScreenVM : Invokes **navigateToHomeScreen()**
+activate RetrieveNoteScreenVM
+RetrieveNoteScreenVM --> RetrieveNoteScreen : Returns 
+deactivate RetrieveNoteScreenVM 
+RetrieveNoteScreen --> User : Returns 
+deactivate User 
+deactivate RetrieveNoteScreen 
+
+==PSEUDOCODE - "Go back" button.clicked==
+hnote across 
+    CLICKS **Go back** button
+
+    INVOKE **navigateToHomeScreen()**
+end hnote 
+
+newpage RetrieveNoteScreen - "sort" button.clicked
+autonumber 1
+hide footbox 
+User -> RetrieveNoteScreen : "sort" button.clicked
+activate User 
+activate RetrieveNoteScreen 
+RetrieveNoteScreen -> RetrieveNoteScreenVM : Invokes **sortNotesBO()**
+activate RetrieveNoteScreenVM
+RetrieveNoteScreenVM --> RetrieveNoteScreen : Returns 
+deactivate RetrieveNoteScreenVM 
+RetrieveNoteScreen --> User : Returns 
+deactivate User 
+deactivate RetrieveNoteScreen 
+
+==PSEUDOCODE - "Go back" button.clicked==
+hnote across 
+    CLICKS **Go back** button
+
+    INVOKE **sortNotesBO()**
 end hnote 
 
 newpage RetrieveNoteScreen - dispose()

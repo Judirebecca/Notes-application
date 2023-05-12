@@ -63,6 +63,48 @@ hnote across
     INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
+newpage HomeScreen - "Create Notes" button.clicked
+autonumber 1
+hide footbox 
+User -> HomeScreen : "Create Notes" button.clicked
+activate User 
+activate HomeScreen 
+HomeScreen -> HomeScreenVM : Invokes **navigateToCreateScreen()**
+activate HomeScreenVM
+HomeScreenVM --> HomeScreen : Returns 
+deactivate HomeScreenVM 
+HomeScreen --> User : Returns 
+deactivate User 
+deactivate HomeScreen 
+
+==PSEUDOCODE - "Create Notes" button.clicked==
+hnote across 
+    CLICKS **Create Notes** button
+
+    INVOKE **navigateToCreateScreen()**
+end hnote 
+
+newpage HomeScreen - "Retrieve Notes" button.clicked
+autonumber 1
+hide footbox 
+User -> HomeScreen : "Retrieve Notes" button.clicked
+activate User 
+activate HomeScreen 
+HomeScreen -> HomeScreenVM : Invokes **navigateToRetrieveScreen()**
+activate HomeScreenVM
+HomeScreenVM --> HomeScreen : Returns 
+deactivate HomeScreenVM 
+HomeScreen --> User : Returns 
+deactivate User 
+deactivate HomeScreen 
+
+==PSEUDOCODE - "Retrieve Notes" button.clicked==
+hnote across 
+    CLICKS **Retrieve Notes** button
+
+    INVOKE **navigateToRetrieveScreen()**
+end hnote 
+
 newpage HomeScreen - dispose() 
 autonumber 1
 hide footbox 

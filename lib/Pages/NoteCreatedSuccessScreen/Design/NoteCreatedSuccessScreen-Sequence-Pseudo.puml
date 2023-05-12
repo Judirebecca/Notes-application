@@ -56,6 +56,27 @@ hnote across
     INVOKE **writeExceptionData()** on the exception object **ex**
 end hnote 
 
+newpage NoteCreatedSuccessScreen - "Go back" button.clicked
+autonumber 1
+hide footbox 
+User -> NoteCreatedSuccessScreen : "Go back" button.clicked
+activate User 
+activate NoteCreatedSuccessScreen 
+NoteCreatedSuccessScreen -> NoteCreatedSuccessScreenVM : Invokes **navigateToHomeScreen()**
+activate NoteCreatedSuccessScreenVM
+NoteCreatedSuccessScreenVM --> NoteCreatedSuccessScreen : Returns 
+deactivate NoteCreatedSuccessScreenVM 
+NoteCreatedSuccessScreen --> User : Returns 
+deactivate User 
+deactivate NoteCreatedSuccessScreen 
+
+==PSEUDOCODE - "Go back" button.clicked==
+hnote across 
+    CLICKS **Go back** button
+
+    INVOKE **navigateToHomeScreen()**
+end hnote 
+
 newpage NoteCreatedSuccessScreen - dispose() 
 autonumber 1
 hide footbox 

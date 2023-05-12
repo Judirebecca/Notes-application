@@ -57,6 +57,27 @@ hnote across
 
 end hnote 
 
+newpage ProcessFailedScreen - "Go back" button.clicked
+autonumber 1
+hide footbox 
+User -> ProcessFailedScreen : "Go back" button.clicked
+activate User 
+activate ProcessFailedScreen 
+ProcessFailedScreen -> ProcessFailedScreenVM : Invokes **navigateToHomeScreen()**
+activate ProcessFailedScreenVM
+ProcessFailedScreenVM --> ProcessFailedScreen : Returns 
+deactivate ProcessFailedScreenVM 
+ProcessFailedScreen --> User : Returns 
+deactivate User 
+deactivate ProcessFailedScreen 
+
+==PSEUDOCODE - "Go back" button.clicked==
+hnote across 
+    CLICKS **Go back** button
+
+    INVOKE **navigateToHomeScreen()**
+end hnote 
+
 newpage ProcessFailedScreen - dispose() 
 autonumber 1
 hide footbox 
