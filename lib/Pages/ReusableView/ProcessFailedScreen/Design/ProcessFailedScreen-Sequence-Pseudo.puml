@@ -35,7 +35,7 @@ ProcessFailedScreen -> ProcessFailedScreen : Start the **navigationStream** to l
     end
     ProcessFailedScreen --> User : Displays the HomeScreen page 
 else #NEGATIVEERESPONSE (CATCH)
-    ProcessFailedScreen -> ProcessFailedScreen : Write logs exception 
+    ProcessFailedScreen -> ProcessFailedScreen : Write log exceptions 
     ProcessFailedScreen --> User : Returns 
 deactivate User 
 deactivate ProcessFailedScreen

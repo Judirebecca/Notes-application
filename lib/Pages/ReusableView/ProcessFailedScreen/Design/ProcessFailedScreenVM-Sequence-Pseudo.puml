@@ -38,7 +38,7 @@ Else #NEGATIVEERESPONSE
 end 
 ProcessFailedScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Write logs exception
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Write log exceptions
 ProcessFailedScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate ProcessFailedScreenVM 
@@ -75,7 +75,7 @@ alt #POSITIVERESPONSE (TRY)
 ProcessFailedScreenVM -> ProcessFailedScreenVM : Navigate to **HomeScreen**
 ProcessFailedScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Write logs exception
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Write log exceptions
 ProcessFailedScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate ProcessFailedScreenVM 

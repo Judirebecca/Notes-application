@@ -43,7 +43,7 @@ alt #POSITIVERESPONSE (TRY)
 end
 
 else #NEGATIVEERESPONSE (CATCH)
-    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write logs exception
+    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write log exceptions
     RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus**  
     RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
     RetrieveNoteScreenVM --> Caller : Returns 
@@ -88,7 +88,7 @@ activate RetrieveNoteScreenVM
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Navigate to **HomeScreen**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write logs exception
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write log exceptions
 RetrieveNoteScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate RetrieveNoteScreenVM 
@@ -115,7 +115,7 @@ alt #POSITIVERESPONSE (TRY)
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Navigate to **ProcessFailedScreen**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write logs exception
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write log exceptions
 RetrieveNoteScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate RetrieveNoteScreenVM 
@@ -146,7 +146,7 @@ deactivate UserBOExtension
 RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the returned value in **@tempListOfNotesBO**
 RetrieveNoteScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH) 
-RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write logs exception
+RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write log exceptions
 RetrieveNoteScreenVM --> Caller : Returns
 deactivate Caller 
 deactivate RetrieveNoteScreenVM 

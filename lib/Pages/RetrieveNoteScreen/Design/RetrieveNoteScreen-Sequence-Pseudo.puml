@@ -37,7 +37,7 @@ RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to lis
     end
     RetrieveNoteScreen --> User : Displays the RetrieveNoteScreen page
 else #NEGATIVEERESPONSE (CATCH) 
-RetrieveNoteScreen -> RetrieveNoteScreen : Write logs exception 
+RetrieveNoteScreen -> RetrieveNoteScreen : Write log exceptions 
 RetrieveNoteScreen --> User : Returns 
 deactivate User 
 deactivate RetrieveNoteScreen

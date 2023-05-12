@@ -32,7 +32,7 @@ alt #POSITIVERESPONSE (TRY)
 HomeScreenVM -> HomeScreenVM :  Navigate to **CreateNoteScreen**
 HomeScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-HomeScreenVM -> HomeScreenVM : Write logs exception
+HomeScreenVM -> HomeScreenVM : Write log exceptions
 HomeScreenVM --> Caller : Returns 
 deactivate Caller 
 deactivate HomeScreenVM 
@@ -59,7 +59,7 @@ alt #POSITIVERESPONSE (TRY)
 HomeScreenVM -> HomeScreenVM : Navigate to **RetrieveNoteScreen**
 HomeScreenVM --> Caller : Returns
 else #NEGATIVEERESPONSE (CATCH)
-HomeScreenVM -> HomeScreenVM : Write logs exception
+HomeScreenVM -> HomeScreenVM : Write log exceptions
 HomeScreenVM --> Caller : Returns 
 deactivate Caller 
 deactivate HomeScreenVM 
