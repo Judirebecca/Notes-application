@@ -32,7 +32,7 @@ activate NoteCreatedSuccessScreenVM
 NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Navigate to **HomeScreen**
 NoteCreatedSuccessScreenVM --> Caller : Returns 
 else #NEGATIVEERESPONSE (CATCH)
-NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Write exception logs
+NoteCreatedSuccessScreenVM -> NoteCreatedSuccessScreenVM : Write logs exception
 NoteCreatedSuccessScreenVM --> Caller : Returns 
 deactivate Caller
 deactivate NoteCreatedSuccessScreenVM 

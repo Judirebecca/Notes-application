@@ -43,7 +43,7 @@ alt #POSITIVERESPONSE (TRY)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
     end
 else #NEGATIVEERESPONSE (CATCH)
-    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write exception logs
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write logs exception
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
@@ -96,7 +96,7 @@ alt #POSITIVERESPONSE (TRY)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
     end
 else #NEGATIVEERESPONSE (CATCH)
-    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write exception logs 
+    PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write logs exception 
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 

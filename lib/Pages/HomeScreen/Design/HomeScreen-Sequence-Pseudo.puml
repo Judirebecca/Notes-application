@@ -40,7 +40,7 @@ alt #POSITIVERESPONSE (event is NavigatorPush)
     end
 end
 else #NEGATIVEERESPONSE (CATCH)
-HomeScreen -> HomeScreen : Write exception logs 
+HomeScreen -> HomeScreen : Write logs exception 
 HomeScreen --> User : Returns 
 deactivate User 
 deactivate HomeScreen 

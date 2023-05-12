@@ -35,7 +35,7 @@ NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Start the **navigationStr
     end
     NoteCreatedSuccessScreen --> User : Displays the HomeScreen page 
 else #NEGATIVEERESPONSE (CATCH)
-NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Write exception logs 
+NoteCreatedSuccessScreen -> NoteCreatedSuccessScreen : Write logs exception 
 NoteCreatedSuccessScreen --> User : Returns 
 deactivate User 
 deactivate NoteCreatedSuccessScreen 
