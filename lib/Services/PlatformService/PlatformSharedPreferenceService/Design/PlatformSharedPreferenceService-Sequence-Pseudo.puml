@@ -37,7 +37,7 @@ alt #POSITIVERESPONSE (TRY)
     Service --> PlatformSharedPreferenceService : Returns
     deactivate Service 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the response in the variable **result**
-    alt #POSITIVERESPONSE (**result** == true)
+    alt #POSITIVERESPONSE (**result.content** == true)
         PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **result**
     else #NEGATIVEERESPONSE (else)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
@@ -59,7 +59,7 @@ end
 
             SET **encodedData** in sharedPreferences against the key using setString() and store the result in the variable **result**
 
-                IF **result == true**
+                IF **result.content == true**
 
                     RETURN the **ServiceResult** with status code as **OK** and content as **result**
             
@@ -90,7 +90,7 @@ alt #POSITIVERESPONSE (TRY)
     deactivate Service 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the result in the variable **retrievedData**
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Deserialize **retrievedData** and store it in the variable **decodedData**
-    alt #POSITIVERESPONSE (**decodedData** != null)
+    alt #POSITIVERESPONSE (**decodedData.content** != null)
         PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **decodedData**
     else #NEGATIVEERESPONSE (else)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
@@ -110,7 +110,7 @@ end
 
             STORE the deserialized data of **retrievedData** in the variable **decodedData** 
 
-                **IF decodedData != null**
+                **IF decodedData.content != null**
 
                     RETURN the **ServiceResult** with status code as **OK** and content as **decodedData**
             
