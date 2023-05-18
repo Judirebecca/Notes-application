@@ -38,13 +38,13 @@ alt #POSITIVERESPONSE (TRY)
     deactivate Service 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the response in the variable **result**
     alt #POSITIVERESPONSE (**result.content** == true)
-        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **result**
+        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK**, message as **Success** and content as **result**
     else #NEGATIVEERESPONSE (else)
-        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure**  and content as **result**
     end
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write log exceptions
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **result**
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure**  and content as **result**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
 end
@@ -61,16 +61,16 @@ end
 
                 IF **result.content == true**
 
-                    RETURN the **ServiceResult** with status code as **OK** and content as **result**
+                    RETURN the **ServiceResult** with status code as **OK**, message as **Success** and content as **result**
             
                 ELSE 
 
-                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **result**
+                    RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **result**
 
         **CATCH** 
             INVOKE writeExceptionData() on the exception object **ex**
 
-            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **result**
+            RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **result**
 
     end hnote
 
@@ -91,13 +91,13 @@ alt #POSITIVERESPONSE (TRY)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the result in the variable **retrievedData**
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Deserialize **retrievedData** and store it in the variable **decodedData**
     alt #POSITIVERESPONSE (**decodedData.content** != null)
-        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK** and content as **decodedData**
+        PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK**, message as **Success** and content as **decodedData**
     else #NEGATIVEERESPONSE (else)
-        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure** and content as **null**
     end
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write log exceptions 
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException** and content as **null**
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure** and content as **null**
     deactivate PlatformSharedPreferenceService 
     deactivate Caller 
 end
@@ -112,16 +112,16 @@ end
 
                 **IF decodedData.content != null**
 
-                    RETURN the **ServiceResult** with status code as **OK** and content as **decodedData**
+                    RETURN the **ServiceResult** with status code as **OK**, message as **Success** and content as **decodedData**
             
                 **ELSE**
 
-                    RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **null**
+                    RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **null**
 
         **CATCH** 
 
             INVOKE writeExceptionData() on the exception object **ex**
 
-            RETURN the **ServiceResult<bool>** with status code as **SystemException** and content as **null**
+            RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **null**
 
     end hnote

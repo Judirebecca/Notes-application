@@ -30,7 +30,6 @@ activate User
 activate RetrieveNoteScreen 
 alt #POSITIVERESPONSE (TRY)
 RetrieveNoteScreen -> RetrieveNoteScreen : Invoke **retrieveNotesFromService()**
-RetrieveNoteScreen --> User : Displays the Notes to the user 
 RetrieveNoteScreen -> RetrieveNoteScreen : Start the **navigationStream** to listen
     alt #POSITIVERESPONSE (event is NavigatorPush)
         RetrieveNoteScreen -> RetrieveNoteScreen : Push the **RetrieveNoteScreen.pageconfig** as pageconfig
