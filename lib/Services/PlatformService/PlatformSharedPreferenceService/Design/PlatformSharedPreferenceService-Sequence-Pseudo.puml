@@ -29,7 +29,7 @@ hide footbox
 Caller -> PlatformSharedPreferenceService : Invoke **createNote(key: "1", value: List<NotesBO>)**
 activate Caller
 activate PlatformSharedPreferenceService
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Assign the values of **key** and **value** to a variable **userInfo** 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Serialize the **userInfo** and store the result in a **encodedData** variable
     PlatformSharedPreferenceService -> Service : Set **encodedData** in sharedPreferences against the key using \nsetString() 
@@ -83,7 +83,7 @@ hide footbox
 Caller -> PlatformSharedPreferenceService : Invoke **retrieveNote(key: String)**
 activate Caller
 activate PlatformSharedPreferenceService
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
     PlatformSharedPreferenceService -> Service : Set **key** in sharedPreferences using getString() 
     activate Service
     Service --> PlatformSharedPreferenceService : Returns 

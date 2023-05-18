@@ -27,7 +27,7 @@ hide footbox
 User -> CreateNoteScreen : Invoke **initState()** 
 activate User 
 activate CreateNoteScreen 
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
     CreateNoteScreen -> CreateNoteScreen : Start the stream **titleFieldController** to listen 
     alt #POSITIVERESPONSE (event is addText)
         CreateNoteScreen -> CreateNoteScreen : Assign the event's data in **titleFieldController**

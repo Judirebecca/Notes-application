@@ -28,7 +28,7 @@ hide footbox
 Caller -> RetrieveNoteScreenVM : Invoke **retrieveNotesFromService()**
 activate Caller 
 activate RetrieveNoteScreenVM 
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
     RetrieveNoteScreenVM -> platformSharedPreferenceService : Invoke **retrieveNote(key: String)** 
     activate platformSharedPreferenceService 
     platformSharedPreferenceService --> RetrieveNoteScreenVM : Returns the **ServiceResult<T?>**

@@ -29,7 +29,7 @@ hide footbox
 Caller -> CreateNoteScreenVM : Invoke **createNoteInService()**
 activate Caller
 activate CreateNoteScreenVM
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
     CreateNoteScreenVM -> CreateNoteScreenVM : Assign and increment the **@id**
     CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **instanceOfNotesBO** pass the instance of **NotesBO** and assign the value of **@id** , **@title** and **@description** 
     CreateNoteScreenVM -> CreateNoteScreenVM : In the variable **@listOfNotesBO** add the **instanceOfNotesBO**

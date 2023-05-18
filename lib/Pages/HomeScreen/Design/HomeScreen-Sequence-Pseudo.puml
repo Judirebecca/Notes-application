@@ -28,7 +28,7 @@ hide footbox
 User -> HomeScreen : Invoke **initState()**
 activate User
 activate HomeScreen
-alt #POSITIVERESPONSE (TRY)
+alt  (TRY)
 HomeScreen -> HomeScreen : Start the **navigationStream** to listen
 alt #POSITIVERESPONSE (event is NavigatorPush)
     HomeScreen -> HomeScreen : Push the **pageconfig** in the **navigationStream**
