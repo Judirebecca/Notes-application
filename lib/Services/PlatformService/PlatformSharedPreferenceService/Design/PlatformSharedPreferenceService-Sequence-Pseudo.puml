@@ -42,10 +42,8 @@ alt  (TRY)
     else #NEGATIVEERESPONSE (else)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code of **result**, message as **Failure**  and content as **result**
     end
-else #NEGATIVEERESPONSE (on FormatException)
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **FormatException**, message as **Failure**  and content as **result**
-else #NEGATIVEERESPONSE (on InternalServerError)
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **InternalServerError**, message as **Failure**  and content as **result**
+else #NEGATIVEERESPONSE (on BadRequest)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **BadRequest**, message as **Failure**  and content as **result**
 else #NEGATIVEERESPONSE (on InsufficientStorage)
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure**  and content as **result**
 else #NEGATIVEERESPONSE (CATCH)
@@ -73,19 +71,16 @@ end
 
                     RETURN the **ServiceResult** with status code of **result**, message as **Failure** and content as **result**
         
-        **ON FormatException**
+        **ON BadRequest**
 
-            RETURN the **ServiceResult** with status code as **FormatException**, message as **Failure** and content as **result**
-
-        **ON InternalServerError**
-
-            RETURN the **ServiceResult** with status code as **InternalServerError**, message as **Failure** and content as **result**
+            RETURN the **ServiceResult** with status code as **BadRequest**, message as **Failure** and content as **result**
 
         **ON InsufficientStorage**
 
             RETURN the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure** and content as **result**
 
         **CATCH** 
+            
             INVOKE writeExceptionData() on the exception object **ex**
 
             RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **result**
@@ -113,12 +108,10 @@ alt  (TRY)
     else #NEGATIVEERESPONSE (else)
         PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code of **result**, message as **Failure** and content as **null**
     end
-else #NEGATIVEERESPONSE (on FormatException)
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **FormatException**, message as **Failure**  and content as **result**
-else #NEGATIVEERESPONSE (on RequestEntityTooLarge)
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **RequestEntityTooLarge**, message as **Failure**  and content as **result**
-else #NEGATIVEERESPONSE (on UnsupportedMediaType)
-    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **UnsupportedMediaType**, message as **Failure**  and content as **result**
+else #NEGATIVEERESPONSE (on BadRequest)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **BadRequest**, message as **Failure**  and content as **result**
+else #NEGATIVEERESPONSE (on InsufficientStorage)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure**  and content as **result**
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write log exceptions 
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure** and content as **null**
@@ -141,17 +134,14 @@ end
                 **ELSE**
 
                     RETURN the **ServiceResult<bool>** with status code of **result**, message as **Failure** and content as **null**
-        **ON FormatException**
+        
+        **ON BadRequest**
 
-            RETURN the **ServiceResult** with status code as **FormatException**, message as **Failure** and content as **result**
+            RETURN the **ServiceResult** with status code as **BadRequest**, message as **Failure** and content as **result**
 
-        **ON RequestEntityTooLarge**
+        **ON InsufficientStorage**
 
-            RETURN the **ServiceResult** with status code as **RequestEntityTooLarge**, message as **Failure** and content as **result**
-
-        **ON UnsupportedMediaType**
-
-            RETURN the **ServiceResult** with status code as **UnsupportedMediaType**, message as **Failure** and content as **result**
+            RETURN the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure** and content as **result**
 
         **CATCH** 
 
