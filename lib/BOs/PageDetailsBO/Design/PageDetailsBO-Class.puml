@@ -16,7 +16,6 @@ package Pages{
     package CreateNoteScreen{
         class CreateNoteScreenVM{
             + createNoteInService() : Future<void>
-            + navigateToSuccessScreen() : void
             + navigateToFailureScreen() : void
         }
     }
