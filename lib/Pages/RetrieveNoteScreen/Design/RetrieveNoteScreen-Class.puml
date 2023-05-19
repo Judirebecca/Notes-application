@@ -15,9 +15,9 @@ package Pages{
         }
         class RetrieveNoteScreenModel{
             + sharedPreferenceService : IPlatformSharedPreferenceService
-            + pageStatus : Map 
             + @originalListOfNotesBO : List<NotesBO>
             + @tempListOfNotesBO : List<NotesBO>
+            + @pageDetailsBO : PageDetailsBO
         }
     }
 }
@@ -28,7 +28,12 @@ package PlatformService{
         }
     }
 }
-
+package BOs{
+    package PageDetailsBO{
+        class PageDetailsBO{
+        }
+    }
+}
 package BOs{
     package NotesBO{
         class NotesBO{
@@ -38,6 +43,7 @@ package BOs{
         }
     }
 }
+RetrieveNoteScreenVM --> PageDetailsBO 
 RetrieveNoteScreen --> RetrieveNoteScreenVM : uses
 RetrieveNoteScreenVM --> RetrieveNoteScreenModel : extends
 RetrieveNoteScreenVM --> IPlatformSharedPreferenceService 

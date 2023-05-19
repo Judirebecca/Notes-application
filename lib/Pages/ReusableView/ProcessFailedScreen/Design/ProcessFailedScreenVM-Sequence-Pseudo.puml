@@ -25,12 +25,12 @@ skinparam sequence{
 title ProcessFailedScreenVM - displayTheFailureReason() 
 autonumber 1
 hide footbox 
-Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageStatus : Map )**
+Caller -> ProcessFailedScreenVM : Invoke **displayTheFailureReason(pageDetails : PageDetailsBO )**
 activate Caller 
 activate ProcessFailedScreenVM 
 alt #POSITIVERESPONSE (TRY)
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **key** of **pageStatus** to **@statusCode**
-ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **value** of **pageStatus** to **@statusOfProcess**
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **statusCode** of **pageStatus** to **@statusCode**
+ProcessFailedScreenVM -> ProcessFailedScreenVM : Set the **pageStatus** of **pageDetails** to **@statusOfProcess**
 alt #POSITIVERESPONSE **@statusCode** == 200
     ProcessFailedScreenVM -> ProcessFailedScreenVM : Set "Create Notes" as **@pageTitle**
 Else #NEGATIVEERESPONSE
@@ -47,7 +47,8 @@ end
 ==PSEUDOCODE - displayTheFailureReason()==
 hnote across 
     **TRY** 
-        SET the **key** and **value** of **pageStatus** to **@statuscode** and **@statusOfProcess**
+
+        SET the **statusCode** and **pageStatus** of **pageDetails** accessed using the instance of **PageDetailsBO** to **@statuscode** and **@statusOfProcess**
 
         **IF @statusCode == 200**
 
@@ -90,5 +91,6 @@ hnote across
     **CATCH** 
 
         INVOKE **writeExceptionData()** on the exception object **ex**
+        
 end hnote 
 @enduml 

@@ -20,8 +20,14 @@ package Pages{
             + @id : int
             + @title : String 
             + @description : String 
-            + @pageStatus : Map 
             + @listOfNotesBO : List<NotesBO>
+            + @pageDetailsBO : PageDetailsBO
+        }
+    }
+}
+package BOs{
+    package PageDetailsBO{
+        class PageDetailsBO{
         }
     }
 }
@@ -40,6 +46,7 @@ package BOs{
         }
     }
 }
+CreateNoteScreenVM --> PageDetailsBO 
 CreateNoteScreen --> CreateNoteScreenVM : uses
 CreateNoteScreenVM --> IPlatformSharedPreferenceService 
 CreateNoteScreenVM --> NotesBO 

@@ -41,7 +41,7 @@ alt  (TRY)
         CreateNoteScreenVM -> CreateNoteScreenVM : Invoke **navigateToSuccessScreen()**
         CreateNoteScreenVM --> Caller : Returns
     else #NEGATIVEERESPONSE
-        CreateNoteScreenVM -> CreateNoteScreenVM : Set the status code and status of page to **@pageStatus** 
+        CreateNoteScreenVM -> CreateNoteScreenVM : Set the status code and status of page to the instance of **PageDetailsBO** and assign it to **@pageDetailsBO** 
         CreateNoteScreenVM -> CreateNoteScreenVM :Invoke **navigateToFailureScreen()**
         CreateNoteScreenVM --> Caller : Returns 
     end
@@ -49,7 +49,7 @@ alt  (TRY)
 
 else #NEGATIVEERESPONSE (CATCH)
         CreateNoteScreenVM -> CreateNoteScreenVM : Write exception logs
-        CreateNoteScreenVM -> CreateNoteScreenVM : Set the status code and status of page to **@pageStatus** 
+        CreateNoteScreenVM -> CreateNoteScreenVM : Set the status code and status of page to the instance of **PageDetailsBO** and assign it to **@pageDetailsBO** 
         CreateNoteScreenVM -> CreateNoteScreenVM : Invoke **navigateToFailureScreen()** 
         CreateNoteScreenVM --> Caller : Returns 
     deactivate CreateNoteScreenVM
@@ -62,7 +62,7 @@ hnote across
 
         INCREMENT by one and assign it as the value of **@id**
 
-        SET the value of **@id** , **@title** and **@description** in the instance of BO and assign the instance in a variable **instanceOfNotesBO**
+        SET the value of **@id** , **@title** and **@description** in the instance of NotesBO and assign the instance in a variable **instanceOfNotesBO**
 
         SET the value of **instanceOfNotesBO** to the **@listOfNotesBO**
 
@@ -76,7 +76,7 @@ hnote across
         
         **ELSE** 
 
-            SET the **response.statuscode** as key and **"Creation"** as value to **@pageStatus**
+            SET the **response.statuscode** as statusCode and **"Creation"** as pageData to instance of **PageDetailsBO** and set the instance to **@pageDetailsBO**
 
             INVOKE **navigateToFailureScreen()** 
 
@@ -84,7 +84,7 @@ hnote across
 
         INVOKE **writeExceptionData()** on the exception object **ex**
 
-        SET the **response.statuscode** as key and **"Creation"** as value to **@pageStatus**
+        SET the **response.statuscode** as statusCode and **"Creation"** as pageData to instance of **PageDetailsBO** and set the instance to **@pageDetailsBO**
 
         INVOKE **navigateToFailureScreen()** 
 end hnote
@@ -110,7 +110,7 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** object along with **parameter (pageconfig: NoteCreatedSuccessScreen.pageconfig, data: @pageStatus)**
+        ADD the event **navigatorPush** to the **navigationStream** object along with **parameter (pageconfig: NoteCreatedSuccessScreen.pageconfig, data: @pageDetailsBO)**
     
     **CATCH** 
 
@@ -164,7 +164,7 @@ end
 hnote across 
     **TRY**
         
-        ADD the event **navigatorPush** to the **navigationStream** object along with the **parameter (pageconfig: ProcessFailedScreen., data: @pageStatus)**     
+        ADD the event **navigatorPush** to the **navigationStream** object along with the **parameter (pageconfig: ProcessFailedScreen., data: @pageDetailsBO)**     
     
     **CATCH** 
 

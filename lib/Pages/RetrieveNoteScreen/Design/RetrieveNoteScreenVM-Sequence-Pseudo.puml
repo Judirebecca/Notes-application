@@ -37,14 +37,14 @@ alt  (TRY)
     alt #POSITIVERESPONSE (reponseReceived.statuscode == 200)
         RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Assign the **responseReceived.content** to a variable **@originalListOfNotesBO** and **@tempListOfNotesBO**
     else #NEGATIVEERESPONSE
-        RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus** 
+        RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the status code and status of page to the instance of **PageDetailsBO** and assign it to **@pageDetailsBO** 
         RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
         RetrieveNoteScreenVM --> Caller : Returns 
 end
 
 else #NEGATIVEERESPONSE (CATCH)
     RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Write log exceptions
-    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the **key** as **reponseReceived.statuscode** and **value** as **Retrieve** in the **@pageStatus**  
+    RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Set the status code and status of page to the instance of **PageDetailsBO** and assign it to **@pageDetailsBO** 
     RetrieveNoteScreenVM -> RetrieveNoteScreenVM : Invoke **navigateToFailureScreen()** 
     RetrieveNoteScreenVM --> Caller : Returns 
     deactivate RetrieveNoteScreenVM
@@ -65,7 +65,7 @@ hnote across
 
             **ELSE** 
 
-                SET the **key** as **reponseReceived.statuscode** and **value** as **"Retrieve"** in the **@pageStatus** 
+                SET the **response.statuscode** as statusCode and **"Retrieve"** as pageData to instance of **PageDetailsBO** and set the instance to **@pageDetailsBO**
 
                 Invoke **navigateToFailureScreen()** and **@pageStatus** is passed as extradata to the page 
 
@@ -73,7 +73,7 @@ hnote across
 
         INVOKE **writeExceptionData()** on the exception object as **ex**
 
-        SET the **response.statuscode** as key and **"Retrieve"** as value to the variable **@pageStatus**
+        SET the **response.statuscode** as statusCode and **"Retrieve"** as pageData to instance of **PageDetailsBO** and set the instance to **@pageDetailsBO**
 
         INVOKE **navigateToFailureScreen()** 
 end hnote 
@@ -125,7 +125,7 @@ end
 hnote across 
     **TRY**
 
-        ADD the event **navigatorPush** to the **navigationStream** object with parameter **(pageconfig: ProcessFailedScreen.pageconfig, data: @pageStatus)**
+        ADD the event **navigatorPush** to the **navigationStream** object with parameter **(pageconfig: ProcessFailedScreen.pageconfig, data: @pageDetailsBO)**
 
     **CATCH** 
 

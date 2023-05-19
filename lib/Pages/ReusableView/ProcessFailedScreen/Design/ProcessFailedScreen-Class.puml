@@ -9,7 +9,7 @@ package Pages{
                 + dispose() : void
             }
             class ProcessFailedScreenVM{
-                + displayTheFailureReason(pageStatus : Map ) : void 
+                + displayTheFailureReason(pageDetails : PageDetailsBO ) : void 
                 + navigateToHomeScreen() : void 
             }
             class ProcessFailedScreenModel{
@@ -20,6 +20,14 @@ package Pages{
         }
     }
 }
+package BOs{
+    package PageDetailsBO{
+        class PageDetailsBO{
+
+        }
+    }
+}
+ProcessFailedScreenVM --> PageDetailsBO 
 ProcessFailedScreen --> ProcessFailedScreenVM : uses 
 ProcessFailedScreenVM --> ProcessFailedScreenModel : extends 
 

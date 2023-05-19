@@ -1,0 +1,33 @@
+@startuml PageDetailsBO - Class Diagram
+package BOs{
+    package PageDetailsBO{
+        class PageDetailsBO{
+            + statusCode : int
+            + pageStatus : String
+        }
+    }
+}
+package Pages{
+    package ProcessFailedScreen{
+        class ProcessFailedScreenVM{
+            + displayTheFailureReason(pageDetails : PageDetailsBO ) : void
+        }
+    }
+    package CreateNoteScreen{
+        class CreateNoteScreenVM{
+            + createNoteInService() : Future<void>
+            + navigateToSuccessScreen() : void
+            + navigateToFailureScreen() : void
+        }
+    }
+    package RetrieveNoteScreen{
+        class RetrieveNoteScreenVM{
+            + retrieveNotesFromService() : Future<void>
+            + navigateToFailureScreen() : void
+        }
+    }
+}
+RetrieveNoteScreenVM --> PageDetailsBO
+CreateNoteScreenVM --> PageDetailsBO
+ProcessFailedScreenVM --> PageDetailsBO
+@enduml
