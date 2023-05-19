@@ -32,16 +32,20 @@ activate PlatformSharedPreferenceService
 alt  (TRY)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Assign the values of **key** and **value** to a variable **userInfo** 
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Serialize the **userInfo** and store the result in a **encodedData** variable
-    PlatformSharedPreferenceService -> Service : Set **encodedData** in sharedPreferences against the key using \nsetString() 
-    activate Service
-    Service --> PlatformSharedPreferenceService : Returns
-    deactivate Service 
+    PlatformSharedPreferenceService -> Storage: Set **encodedData** in sharedPreferences against the key using \nsetString() 
+    activate Storage
+    Storage--> PlatformSharedPreferenceService : Returns
+    deactivate Storage
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the response in the variable **result**
     alt #POSITIVERESPONSE (**result.content** == true)
         PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK**, message as **Success** and content as **result**
     else #NEGATIVEERESPONSE (else)
-        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure**  and content as **result**
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code of **result**, message as **Failure**  and content as **result**
     end
+else #NEGATIVEERESPONSE (on InternalServerError)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **InternalServerError**, message as **Failure**  and content as **result**
+else #NEGATIVEERESPONSE (on InsufficientStorage)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure**  and content as **result**
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write log exceptions
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure**  and content as **result**
@@ -65,7 +69,15 @@ end
             
                 ELSE 
 
-                    RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **result**
+                    RETURN the **ServiceResult** with status code of **result**, message as **Failure** and content as **result**
+        
+        **ON InternalServerError**
+
+            RETURN the **ServiceResult** with status code as **InternalServerError**, message as **Failure** and content as **result**
+
+        **ON InsufficientStorage**
+
+            RETURN the **ServiceResult** with status code as **InsufficientStorage**, message as **Failure** and content as **result**
 
         **CATCH** 
             INVOKE writeExceptionData() on the exception object **ex**
@@ -84,17 +96,21 @@ Caller -> PlatformSharedPreferenceService : Invoke **retrieveNote(key: String)**
 activate Caller
 activate PlatformSharedPreferenceService
 alt  (TRY)
-    PlatformSharedPreferenceService -> Service : Set **key** in sharedPreferences using getString() 
-    activate Service
-    Service --> PlatformSharedPreferenceService : Returns 
-    deactivate Service 
+    PlatformSharedPreferenceService -> Storage: Set **key** in sharedPreferences using getString() 
+    activate Storage
+    Storage--> PlatformSharedPreferenceService : Returns 
+    deactivate Storage
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Store the result in the variable **retrievedData**
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Deserialize **retrievedData** and store it in the variable **decodedData**
     alt #POSITIVERESPONSE (**decodedData.content** != null)
         PlatformSharedPreferenceService --> Caller : Return the **ServiceResult** with status code as **OK**, message as **Success** and content as **decodedData**
     else #NEGATIVEERESPONSE (else)
-        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure** and content as **null**
+        PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code of **result**, message as **Failure** and content as **null**
     end
+else #NEGATIVEERESPONSE (on RequestEntityTooLarge)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **RequestEntityTooLarge**, message as **Failure**  and content as **result**
+else #NEGATIVEERESPONSE (on UnsupportedMediaType)
+    PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **UnsupportedMediaType**, message as **Failure**  and content as **result**
 else #NEGATIVEERESPONSE (CATCH)
     PlatformSharedPreferenceService -> PlatformSharedPreferenceService : Write log exceptions 
     PlatformSharedPreferenceService --> Caller :  Return the **ServiceResult** with status code as **SystemException**, message as **Failure** and content as **null**
@@ -116,7 +132,15 @@ end
             
                 **ELSE**
 
-                    RETURN the **ServiceResult<bool>** with status code as **SystemException**, message as **Failure** and content as **null**
+                    RETURN the **ServiceResult<bool>** with status code of **result**, message as **Failure** and content as **null**
+        
+        **ON RequestEntityTooLarge**
+
+            RETURN the **ServiceResult** with status code as **RequestEntityTooLarge**, message as **Failure** and content as **result**
+
+        **ON UnsupportedMediaType**
+
+            RETURN the **ServiceResult** with status code as **UnsupportedMediaType**, message as **Failure** and content as **result**
 
         **CATCH** 
 
